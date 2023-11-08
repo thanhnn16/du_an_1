@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Allure Spa</string>
+    <string name="spa_name">Allure Spa</string>
+    <string name="onboarding_des_1">Allure Spa sẽ đưa làn da về đúng với thời điểm cấu trúc khỏe mạnh nhất</string>
+    <string name="onboarding_image">Onboarding Image</string>
+    <string name="welcome_des">Allure Spa sẽ đưa làn da về đúng với thời điểm cấu trúc khỏe mạnh nhất</string>
 </resources>
