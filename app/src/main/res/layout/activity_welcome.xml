@@ -10,41 +10,41 @@
         android:id="@+id/header_title"
         android:layout_width="match_parent"
         android:layout_height="400sp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/welcome_elipse"
-            android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:scaleType="fitXY" />
-        
+            android:scaleType="fitXY"
+            android:src="@drawable/welcome_elipse" />
+
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo_with_text"
-            android:layout_marginTop="64dp"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:scaleType="centerInside" />
+            android:layout_marginTop="64dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/logo_with_text" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
-            android:text="@string/welcome_des"
-            android:textSize="16sp"
-            android:textColor="#423838"
-            android:textAlignment="center"
-            android:layout_marginTop="8dp"
             android:layout_below="@id/logo"
             android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/welcome_des"
+            android:textAlignment="center"
+            android:textColor="#423838"
+            android:textSize="16sp" />
 
     </RelativeLayout>
 
@@ -52,42 +52,85 @@
         android:id="@+id/btnDangNhap"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        app:layout_constraintTop_toBottomOf="@id/header_title"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="4dp"
-        android:backgroundTint="@color/primaryColor"
         android:layout_marginHorizontal="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/primaryColor"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_title">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Dang nhap"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
+            android:gravity="center"
+            android:text="@string/start_now"
             android:textAlignment="center"
-            android:gravity="center" />
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </androidx.cardview.widget.CardView>
 
-    <Button
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
-        android:text="Dang ky"
-        android:textSize="16sp"
-        android:textColor="@color/primaryColor"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        app:cornerRadius="10dp"
-        android:backgroundTint="@color/white"
+        android:layout_marginTop="32dp"
         android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/btnDangNhap">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/primaryColor" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:text="@string/or"
+            android:textColor="#423838"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/primaryColor" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/google_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:layout_below="@id/btnDangNhap"
-        app:layout_constraintTop_toBottomOf="@id/btnDangNhap" />
+        android:background="@drawable/button_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icons_google" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:text="@string/login_via_google"
+            android:textColor="#7A7A7A"
+            android:textSize="16sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
