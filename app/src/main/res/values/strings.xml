@@ -36,4 +36,9 @@
     <string name="see_more">Xem thêm</string>
     <string name="popular_product">Sản phẩm nổi bật</string>
     <string name="best_seller">Sản phẩm bán chạy</string>
+    <string name="account_info">Thông tin tài khoản</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="account">Tài khoản</string>
+    <string name="search_caps">TÌM KIẾM</string>
+    <string name="recent_search">Tìm kiếm gần đây</string>
 </resources>

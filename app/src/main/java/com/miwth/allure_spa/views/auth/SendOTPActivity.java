@@ -1,11 +1,14 @@
 package com.miwth.allure_spa.views.auth;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -44,12 +47,25 @@ public class SendOTPActivity extends AppCompatActivity {
         setContentView(R.layout.activity_send_otpactivity);
 
         getWindow().setStatusBarColor(getResources().getColor(R.color.transparent, null));
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+        mAuth = FirebaseAuth.getInstance();
 
 
         edtPhoneNumber = findViewById(R.id.edtPhoneNumber);
+
         btnOtp = findViewById(R.id.btnSend);
         tvNotNow = findViewById(R.id.tvNotNow);
         tvNotNow.setPaintFlags(tvNotNow.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        edtPhoneNumber.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(edtPhoneNumber, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+        edtPhoneNumber.requestFocus();
+
 
         edtPhoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -87,10 +103,6 @@ public class SendOTPActivity extends AppCompatActivity {
                 //     detect the incoming verification SMS and perform verification without
                 //     user action.
                 Log.d(TAG, "onVerificationCompleted:" + credential);
-                Intent intent = new Intent(SendOTPActivity.this, VerifyOTPActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("phoneNumber", phoneNumber);
-//                put cren
 
             }
 
@@ -104,6 +116,7 @@ public class SendOTPActivity extends AppCompatActivity {
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
                     // Invalid request
                     message = "Số điện thoại không hợp lệ";
+                    Log.e(TAG, "onVerificationFailed: " + phoneNumber);
                 } else if (e instanceof FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
                     message = "Quá số lần yêu cầu";
@@ -116,39 +129,52 @@ public class SendOTPActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCodeSent(@NonNull String verificationId,
-                                   @NonNull PhoneAuthProvider.ForceResendingToken token) {
+            public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken token) {
                 // The SMS verification code has been sent to the provided phone number, we
                 // now need to ask the user to enter the code and then construct a credential
                 // by combining the code with a verification ID.
                 Log.d(TAG, "onCodeSent:" + verificationId);
-                Toast.makeText(SendOTPActivity.this, "Mã OTP đã được gửi", Toast.LENGTH_SHORT).show();
+
 
                 // Save verification ID and resending token so we can use them later
                 mVerificationId = verificationId;
                 mResendToken = token;
+
+                Toast.makeText(SendOTPActivity.this, "Mã OTP đã được gửi", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SendOTPActivity.this, VerifyOTPActivity.class);
+                intent.putExtra("credential", verificationId);
+                intent.putExtra("phoneNumber", phoneNumber);
+                intent.putExtra("token", token);
+                startActivity(intent);
             }
         };
 
-        PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber("+84" + phoneNumber)       // Phone number to verify
-                        .setTimeout(30L, TimeUnit.SECONDS) // Timeout and unit
-                        .setActivity(this)                 // (optional) Activity for callback binding
-                        // If no activity is passed, reCAPTCHA verification can not be used.
-                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
-                        .build();
-        PhoneAuthProvider.verifyPhoneNumber(options);
-
 
         btnOtp.setOnClickListener(v -> {
-            Intent intent = new Intent(this, VerifyOTPActivity.class);
-            intent.putExtra("phoneNumber", edtPhoneNumber.getText().toString());
-            startActivity(intent);
+            phoneNumber = String.valueOf(edtPhoneNumber.getText());
+
+            PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth).setPhoneNumber("+84" + phoneNumber)       // Phone number to verify
+                    .setTimeout(30L, TimeUnit.SECONDS) // Timeout and unit
+                    .setActivity(this)                 // (optional) Activity for callback binding
+                    // If no activity is passed, reCAPTCHA verification can not be used.
+                    .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
+                    .build();
+
+            PhoneAuthProvider.verifyPhoneNumber(options);
         });
+    }
 
-        edtPhoneNumber.requestFocus();
-        edtPhoneNumber.setShowSoftInputOnFocus(true);
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
 
+        if (hasFocus) {
+            // Đặt focus cho edtPhoneNumber
+            edtPhoneNumber.requestFocus();
+
+            // Hiển thị bàn phím
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(edtPhoneNumber, InputMethodManager.SHOW_IMPLICIT);
+        }
     }
 }

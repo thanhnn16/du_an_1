@@ -1,5 +1,6 @@
 package com.miwth.allure_spa.views.auth;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,233 +11,133 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.views.home.HomeActivity;
 
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
+
 public class VerifyOTPActivity extends AppCompatActivity {
     private static final String TAG = "VERIFY_OTP_ACTIVITY";
-    FirebaseAuth mAuth;
-    PhoneAuthCredential credential;
-    String mVerificationId;
-    String phoneNumber;
-    String code;
-    PhoneAuthProvider.ForceResendingToken mResendToken;
-    Button btnVerify;
-    EditText edtOTP1, edtOTP2, edtOTP3, edtOTP4, edtOTP5, edtOTP6;
-    TextView tvPhoneNumber, tvResendOTP, tvCountDown;
+    private FirebaseAuth mAuth;
+    private String mVerificationId, phoneNumber, code;
+    private PhoneAuthProvider.ForceResendingToken mResendToken;
+    private Button btnVerify;
+    private EditText[] otpEditTexts = new EditText[6];
+    private TextView tvPhoneNumber, tvResendOTP, tvCountDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_otpactivity);
-
         getWindow().setStatusBarColor(getResources().getColor(R.color.transparent, null));
 
+        initView();
+        setPhoneNumber();
+        setResendClickListener();
+        startCountDown();
+        addTextWatcher();
+        setVerifyClickListener();
+    }
+
+    private void initView() {
+        mAuth = FirebaseAuth.getInstance();
         btnVerify = findViewById(R.id.btnVerify);
         tvPhoneNumber = findViewById(R.id.tv_phone_number);
         tvResendOTP = findViewById(R.id.tvResendOTP);
-        tvResendOTP.setEnabled(false);
         tvCountDown = findViewById(R.id.tvCountDown);
+        otpEditTexts[0] = findViewById(R.id.edtOTP1);
+        otpEditTexts[1] = findViewById(R.id.edtOTP2);
+        otpEditTexts[2] = findViewById(R.id.edtOTP3);
+        otpEditTexts[3] = findViewById(R.id.edtOTP4);
+        otpEditTexts[4] = findViewById(R.id.edtOTP5);
+        otpEditTexts[5] = findViewById(R.id.edtOTP6);
+    }
 
-        startCountDown();
-
-        edtOTP1 = findViewById(R.id.edtOTP1);
-        edtOTP2 = findViewById(R.id.edtOTP2);
-        edtOTP3 = findViewById(R.id.edtOTP3);
-        edtOTP4 = findViewById(R.id.edtOTP4);
-        edtOTP5 = findViewById(R.id.edtOTP5);
-        edtOTP6 = findViewById(R.id.edtOTP6);
-
-        edtOTP1.requestFocus();
-        addTextWatcher();
-
+    private void setPhoneNumber() {
         Intent intent = getIntent();
         phoneNumber = intent.getStringExtra("phoneNumber");
+        mVerificationId = intent.getStringExtra("credential");
+        mResendToken = intent.getParcelableExtra("token");
         if (phoneNumber != null) {
             tvPhoneNumber.setText("+84" + phoneNumber);
         }
-        mAuth = FirebaseAuth.getInstance();
-
-
-        btnVerify.setOnClickListener(v -> {
-//            code = "123456";
-            code = edtOTP1.getText().toString() + edtOTP2.getText().toString() + edtOTP3.getText().toString() + edtOTP4.getText().toString() + edtOTP5.getText().toString() + edtOTP6.getText().toString();
-            credential = PhoneAuthProvider.getCredential(mVerificationId, code);
-            signInWithPhoneAuthCredential(credential);
-        });
-
     }
 
-    private void addTextWatcher() {
-        edtOTP1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if ((edtOTP1.getText().toString().length() == 1)) {
-                    edtOTP2.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        edtOTP2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if ((edtOTP2.getText().toString().length() == 1)) {
-                    edtOTP3.requestFocus();
-                }
-                if ((edtOTP2.getText().toString().length() == 0)) {
-                    edtOTP1.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        edtOTP3.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if ((edtOTP3.getText().toString().length() == 1)) {
-                    edtOTP4.requestFocus();
-                }
-                if ((edtOTP3.getText().toString().length() == 0)) {
-                    edtOTP2.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        edtOTP4.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if ((edtOTP4.getText().toString().length() == 1)) {
-                    edtOTP5.requestFocus();
-                }
-                if ((edtOTP4.getText().toString().length() == 0)) {
-                    edtOTP3.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        edtOTP5.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if ((edtOTP5.getText().toString().length() == 1)) {
-                    edtOTP6.requestFocus();
-                }
-                if ((edtOTP5.getText().toString().length() == 0)) {
-                    edtOTP4.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        edtOTP6.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if ((edtOTP6.getText().toString().length() == 0)) {
-                    edtOTP5.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+    private void setResendClickListener() {
+        tvResendOTP.setOnClickListener(v -> {
+            PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth)
+                    .setPhoneNumber("+84" + phoneNumber)
+                    .setTimeout(30L, TimeUnit.SECONDS)
+                    .setActivity(VerifyOTPActivity.this)
+                    .setCallbacks(getVerificationCallbacks())
+                    .build();
+            PhoneAuthProvider.verifyPhoneNumber(options);
         });
     }
 
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithCredential:success");
-                        FirebaseUser user = task.getResult().getUser();
-                        // Update UI
-                        Intent intent = new Intent(VerifyOTPActivity.this, HomeActivity.class);
-                        if (user.getPhoneNumber() != null) {
-                            Toast.makeText(VerifyOTPActivity.this, "Chào " + user.getPhoneNumber(), Toast.LENGTH_SHORT).show();
-                        }
-                        startActivity(intent);
-                        finishAffinity();
-                    } else {
-                        // Sign in failed, display a message and update the UI
-                        Log.w(TAG, "signInWithCredential:failure", task.getException());
-                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                            // The verification code entered was invalid
-                            Toast.makeText(VerifyOTPActivity.this, "OTP không hợp lệ", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks getVerificationCallbacks() {
+        return new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            @Override
+            public void onVerificationFailed(@NonNull FirebaseException e) {
+                handleVerificationFailed(e);
+            }
+
+            @Override
+            public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken token) {
+                handleCodeSent(verificationId, token);
+            }
+
+            @Override
+            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                Log.d(TAG, "onVerificationCompleted: " + phoneAuthCredential);
+            }
+        };
     }
 
+    private void handleVerificationFailed(FirebaseException e) {
+        Log.w(TAG, "onVerificationFailed", e);
+        if (e instanceof FirebaseAuthInvalidCredentialsException) {
+            Toast.makeText(VerifyOTPActivity.this, "Số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(VerifyOTPActivity.this, "Quá số lần gửi OTP", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void handleCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken token) {
+        Log.d(TAG, "onCodeSent:" + verificationId);
+        mVerificationId = verificationId;
+        mResendToken = token;
+        Toast.makeText(VerifyOTPActivity.this, "Đã gửi lại OTP", Toast.LENGTH_SHORT).show();
+        tvResendOTP.setEnabled(false);
+        tvResendOTP.setTextColor(getResources().getColor(R.color.primaryColor, null));
+        startCountDown();
+    }
+
+    @SuppressLint("DefaultLocale")
     private void startCountDown() {
         new Thread(() -> {
             for (int i = 30; i >= 0; i--) {
                 try {
                     Thread.sleep(1000);
                     final int finalI = i;
-                    runOnUiThread(() -> tvCountDown.setText("Gửi lại mã OTP sau " + finalI + " giây"));
-                    if (i == 0) {
-                        runOnUiThread(() -> tvResendOTP.setEnabled(true));
-                    }
+                    runOnUiThread(() -> {
+                        tvCountDown.setText(String.format("00:%02d", finalI));
+                        if (finalI == 0) {
+                            tvResendOTP.setEnabled(true);
+                            tvResendOTP.setTextColor(getResources().getColor(R.color.primaryColor, null));
+                        }
+                    });
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -244,4 +145,73 @@ public class VerifyOTPActivity extends AppCompatActivity {
         }).start();
     }
 
+    private void addTextWatcher() {
+        for (int i = 0; i < 6; i++) {
+            final int index = i;
+            otpEditTexts[i].addTextChangedListener(new TextWatcher() {
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (s.length() == 1 && index < 5) {
+                        otpEditTexts[index + 1].requestFocus();
+                    } else if (s.length() == 0 && index > 0) {
+                        otpEditTexts[index - 1].requestFocus();
+                    }
+                    updateVerifyButtonState();
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                }
+            });
+        }
+    }
+
+    private void updateVerifyButtonState() {
+        StringBuilder codeBuilder = new StringBuilder();
+        for (EditText editText : otpEditTexts) {
+            codeBuilder.append(editText.getText().toString());
+        }
+        code = codeBuilder.toString();
+        btnVerify.setEnabled(code.length() == 6);
+        btnVerify.setBackgroundColor(getResources().getColor(
+                btnVerify.isEnabled() ? R.color.primaryColor : R.color.primaryColorDisabled, null));
+    }
+
+    private void setVerifyClickListener() {
+        btnVerify.setOnClickListener(v -> {
+            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
+            signInWithPhoneAuthCredential(credential);
+        });
+    }
+
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        mAuth.signInWithCredential(credential).addOnCompleteListener(this, task -> {
+            if (task.isSuccessful()) {
+                handleSignInSuccess(Objects.requireNonNull(task.getResult().getUser()));
+            } else {
+                handleSignInFailure(task.getException());
+            }
+        });
+    }
+
+    private void handleSignInSuccess(FirebaseUser user) {
+        Log.d(TAG, "signInWithCredential:success");
+        Intent intent = new Intent(VerifyOTPActivity.this, HomeActivity.class);
+        if (user.getPhoneNumber() != null) {
+            Toast.makeText(VerifyOTPActivity.this, "Chào " + user.getPhoneNumber(), Toast.LENGTH_SHORT).show();
+        }
+        startActivity(intent);
+        finishAffinity();
+    }
+
+    private void handleSignInFailure(Exception exception) {
+        Log.w(TAG, "signInWithCredential:failure", exception);
+        if (exception instanceof FirebaseAuthInvalidCredentialsException) {
+            Toast.makeText(VerifyOTPActivity.this, "OTP không hợp lệ", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

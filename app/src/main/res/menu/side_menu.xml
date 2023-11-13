@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:title="@string/account">
+        <item
+            android:id="@+id/account_info"
+            android:icon="@drawable/user"
+            android:title="@string/account_info" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/sign_out"
+            android:title="@string/logout" />
+    </group>
+</menu>
