@@ -12,9 +12,15 @@ import androidx.core.splashscreen.SplashScreen;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.miwth.allure_spa.api.auth.LoginResponse;
+import com.miwth.allure_spa.api.auth.UserRepository;
 import com.miwth.allure_spa.ui.views.home.HomeActivity;
 import com.miwth.allure_spa.ui.views.welcome.OnboardingActivity;
 import com.miwth.allure_spa.ui.views.welcome.WelcomeActivity;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN_ACTIVITY";
@@ -35,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+        loginToServe();
 
         loading();
 
@@ -63,5 +70,31 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         }, 1000);
+    }
+
+    private void loginToServe() {
+        UserRepository userRepository = new UserRepository();
+        userRepository.login("email@gmail.com", "123123123").enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.isSuccessful()) {
+                    String token = response.body().getToken();
+
+                    // Save token to SharedPreferences
+                    SharedPreferences sharedPreferences = getSharedPreferences("api_tokens", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("token", token);
+                    editor.apply();
+                } else {
+                    // Handle the case where the request was not successful
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+
+            }
+
+        });
     }
 }

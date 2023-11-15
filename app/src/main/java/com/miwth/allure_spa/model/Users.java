@@ -2,7 +2,7 @@ package com.miwth.allure_spa.model;
 
 import java.util.Date;
 
-public class User {
+public class Users {
     private int id;
     private String email;
     private String password;
@@ -16,7 +16,7 @@ public class User {
     private Date createdAt;
     private Date lastUpdate;
 
-    public User(int id, String email, String password, String role, String phoneNumber, String fullName, String address, Date dateOfBirth, String skinCondition, String image, Date createdAt, Date lastUpdate) {
+    public Users(int id, String email, String password, String role, String phoneNumber, String fullName, String address, Date dateOfBirth, String skinCondition, String image, Date createdAt, Date lastUpdate) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -126,4 +126,5 @@ public class User {
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
+
 }

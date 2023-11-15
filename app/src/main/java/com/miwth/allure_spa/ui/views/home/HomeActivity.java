@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.ui.views.home.fragment.HomeFragment;
 import com.miwth.allure_spa.ui.views.home.fragment.NotificationFragment;
@@ -38,7 +39,7 @@ public class HomeActivity extends AppCompatActivity implements SideMenuCallBack,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         getWindow().setStatusBarColor(getResources().getColor(R.color.white, null));
-
+        AndroidThreeTen.init(this);
         OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
         dispatcher.addCallback(this, new OnBackPressedCallback(true) {
             @Override

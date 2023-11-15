@@ -21,8 +21,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -44,5 +43,10 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
     implementation("androidx.core:core-splashscreen:1.1.0-alpha02")
     implementation("com.airbnb.android:lottie:6.1.0")
-
+    implementation("io.socket:socket.io-client:2.0.0")
+    implementation("com.squareup.moshi:moshi:1.14.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.jakewharton.threetenabp:threetenabp:1.3.1")
 }

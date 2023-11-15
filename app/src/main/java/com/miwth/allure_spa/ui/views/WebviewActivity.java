@@ -27,9 +27,7 @@ public class WebviewActivity extends AppCompatActivity {
 
         tvTitle = findViewById(R.id.tvTitle);
         ibBack = findViewById(R.id.btnBack);
-        ibBack.setOnClickListener(v -> {
-            finish();
-        });
+        ibBack.setOnClickListener(v -> finish());
 
         webView = findViewById(R.id.webview);
 
@@ -46,8 +44,5 @@ public class WebviewActivity extends AppCompatActivity {
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(baseUrl + url);
-
     }
-
-
 }

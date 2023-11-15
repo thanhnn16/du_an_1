@@ -4,31 +4,31 @@ import java.util.Date;
 
 public class Cosmetics {
     private int id;
-    private String cosmeticsName;
-    private int cosmeticsCategoryId;
+    private String cosmetics_name;
+    private int cosmetics_category_id;
     private String descriptions;
     private int price;
     private String purpose;
     private String ingredients;
-    private String howToUse;
+    private String how_to_use;
     private String image;
-    private Date createdAt;
-    private Date lastUpdate;
+    private Date created_at;
+    private Date last_update;
 
     public Cosmetics(int id, String cosmeticsName, int cosmeticsCategoryId, String descriptions,
                      int price, String purpose, String ingredients, String howToUse, String image,
                      Date createdAt, Date lastUpdate) {
         this.id = id;
-        this.cosmeticsName = cosmeticsName;
-        this.cosmeticsCategoryId = cosmeticsCategoryId;
+        this.cosmetics_name = cosmeticsName;
+        this.cosmetics_category_id = cosmeticsCategoryId;
         this.descriptions = descriptions;
         this.price = price;
         this.purpose = purpose;
         this.ingredients = ingredients;
-        this.howToUse = howToUse;
+        this.how_to_use = howToUse;
         this.image = image;
-        this.createdAt = createdAt;
-        this.lastUpdate = lastUpdate;
+        this.created_at = createdAt;
+        this.last_update = lastUpdate;
     }
 
     public int getId() {
@@ -39,20 +39,20 @@ public class Cosmetics {
         this.id = id;
     }
 
-    public String getCosmeticsName() {
-        return cosmeticsName;
+    public String getCosmetics_name() {
+        return cosmetics_name;
     }
 
-    public void setCosmeticsName(String cosmeticsName) {
-        this.cosmeticsName = cosmeticsName;
+    public void setCosmetics_name(String cosmetics_name) {
+        this.cosmetics_name = cosmetics_name;
     }
 
-    public int getCosmeticsCategoryId() {
-        return cosmeticsCategoryId;
+    public int getCosmetics_category_id() {
+        return cosmetics_category_id;
     }
 
-    public void setCosmeticsCategoryId(int cosmeticsCategoryId) {
-        this.cosmeticsCategoryId = cosmeticsCategoryId;
+    public void setCosmetics_category_id(int cosmetics_category_id) {
+        this.cosmetics_category_id = cosmetics_category_id;
     }
 
     public String getDescriptions() {
@@ -87,12 +87,12 @@ public class Cosmetics {
         this.ingredients = ingredients;
     }
 
-    public String getHowToUse() {
-        return howToUse;
+    public String getHow_to_use() {
+        return how_to_use;
     }
 
-    public void setHowToUse(String howToUse) {
-        this.howToUse = howToUse;
+    public void setHow_to_use(String how_to_use) {
+        this.how_to_use = how_to_use;
     }
 
     public String getImage() {
@@ -103,20 +103,37 @@ public class Cosmetics {
         this.image = image;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public Date getCreated_at() {
+        return created_at;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 
-    public Date getLastUpdate() {
-        return lastUpdate;
+    public Date getLast_update() {
+        return last_update;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
-        this.lastUpdate = lastUpdate;
+    public void setLast_update(Date last_update) {
+        this.last_update = last_update;
+    }
+
+    @Override
+    public String toString() {
+        return "Cosmetics{" +
+                "id=" + id +
+                ", cosmetics_name='" + getCosmetics_name() + '\'' +
+                ", cosmetics_category_id=" + getCosmetics_category_id() +
+                ", descriptions='" + getDescriptions() + '\'' +
+                ", price=" + getPrice() +
+                ", purpose='" + getPurpose() + '\'' +
+                ", ingredients='" + getIngredients() + '\'' +
+                ", how_to_use='" + getHow_to_use() + '\'' +
+                ", image='" + getImage() + '\'' +
+                ", created_at=" + getCreated_at() +
+                ", last_update=" + getLast_update() +
+                '}';
     }
 }
 

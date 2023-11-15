@@ -1,7 +1,10 @@
 package com.miwth.allure_spa.ui.views.home.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +12,35 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.miwth.allure_spa.R;
+import com.miwth.allure_spa.api.cosmetic.CosmeticRepository;
+import com.miwth.allure_spa.api.cosmetic.CosmeticsResponse;
+import com.miwth.allure_spa.model.Cosmetics;
+import com.miwth.allure_spa.model.Treatment;
+import com.miwth.allure_spa.ui.adapter.CosmeticAdapter;
+import com.miwth.allure_spa.ui.adapter.TreatmentAdapter;
 import com.miwth.allure_spa.ui.views.WebviewActivity;
 import com.miwth.allure_spa.util.callback.SideMenuCallBack;
 
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class HomeFragment extends Fragment {
+    private static final String TAG = "HOME_FRAGMENT";
     LinearLayout llIntroduction, llVoucher, llService, llSanPhamDocQuyen, llSanPhamMayMoc, llCourse, llNews, llContact;
+    RecyclerView rvCosmetic, rvTreatment, rvNews, rvBestSeller;
+    ArrayList<Cosmetics> cosmeticsArrayList;
+    ArrayList<Treatment> treatmentArrayList;
+    Context context;
+    CosmeticAdapter cosmeticAdapter;
+    TreatmentAdapter treatmentAdapter;
+    SharedPreferences sharedPreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,6 +51,15 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View homeFragmentView = inflater.inflate(R.layout.fragment_home, container, false);
+        context = getActivity();
+        sharedPreferences = context.getSharedPreferences("api_tokens", Context.MODE_PRIVATE);
+
+        rvCosmetic = homeFragmentView.findViewById(R.id.rvCosmetic);
+        rvTreatment = homeFragmentView.findViewById(R.id.rvService);
+        rvNews = homeFragmentView.findViewById(R.id.rvNews);
+        rvBestSeller = homeFragmentView.findViewById(R.id.rvBestSeller);
+
+        getData();
 
         llIntroduction = homeFragmentView.findViewById(R.id.llIntroduction);
         llVoucher = homeFragmentView.findViewById(R.id.llVoucher);
@@ -88,5 +122,39 @@ public class HomeFragment extends Fragment {
 
 
         return homeFragmentView;
+    }
+
+    private void getData() {
+        CosmeticRepository cosmeticRepository = new CosmeticRepository(sharedPreferences.getString("token", null));
+        cosmeticRepository.getCosmetics().enqueue(new Callback<CosmeticsResponse>() {
+            @Override
+            public void onResponse(Call<CosmeticsResponse> call, Response<CosmeticsResponse> response) {
+                if (response.isSuccessful()) {
+                    cosmeticsArrayList = (ArrayList<Cosmetics>) response.body().getData();
+                    Log.d(TAG, "onResponse: " + cosmeticsArrayList.get(0).toString());
+                    Log.d(TAG, "onResponse: " + response.body());
+                    setUpRecyclerView();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CosmeticsResponse> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.getMessage());
+            }
+        });
+    }
+
+    private void setUpRecyclerView() {
+        rvCosmetic.setHasFixedSize(true);
+        rvTreatment.setHasFixedSize(true);
+        rvNews.setHasFixedSize(true);
+        rvBestSeller.setHasFixedSize(true);
+
+        cosmeticAdapter = new CosmeticAdapter(context, cosmeticsArrayList);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        rvCosmetic.setLayoutManager(linearLayoutManager);
+        rvCosmetic.setAdapter(cosmeticAdapter);
+
     }
 }
