@@ -12,9 +12,9 @@ import androidx.core.splashscreen.SplashScreen;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.miwth.allure_spa.views.home.HomeActivity;
-import com.miwth.allure_spa.views.welcome.OnboardingActivity;
-import com.miwth.allure_spa.views.welcome.WelcomeActivity;
+import com.miwth.allure_spa.ui.views.home.HomeActivity;
+import com.miwth.allure_spa.ui.views.welcome.OnboardingActivity;
+import com.miwth.allure_spa.ui.views.welcome.WelcomeActivity;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN_ACTIVITY";

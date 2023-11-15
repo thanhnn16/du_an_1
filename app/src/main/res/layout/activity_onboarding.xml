@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/onboarding_bg"
     android:fitsSystemWindows="true"
-    tools:context=".views.welcome.OnboardingActivity">
+    tools:context=".ui.views.welcome.OnboardingActivity">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_onboarding"

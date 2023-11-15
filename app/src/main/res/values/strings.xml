@@ -41,4 +41,9 @@
     <string name="account">Tài khoản</string>
     <string name="search_caps">TÌM KIẾM</string>
     <string name="recent_search">Tìm kiếm gần đây</string>
+    <string name="add_to_cart">Thêm vào giỏ hàng</string>
+    <string name="description">Mô tả</string>
+    <string name="title">Tiêu đề</string>
+    <string name="go_back">Trở lại</string>
+    <string name="notification_caps">THÔNG BÁO</string>
 </resources>
