@@ -1,6 +1,8 @@
 package com.miwth.allure_spa.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,16 +11,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.model.Cosmetics;
+import com.miwth.allure_spa.ui.views.cosmetic.CosmeticDetailActivity;
 
 import java.util.List;
 
 public class CosmeticAdapter extends RecyclerView.Adapter<CosmeticAdapter.CosmeticViewHolder> {
 
-    private List<Cosmetics> cosmeticsList;
+    private final List<Cosmetics> cosmeticsList;
     Context context;
 
     public CosmeticAdapter(Context context, List<Cosmetics> cosmeticsList) {
@@ -37,11 +41,17 @@ public class CosmeticAdapter extends RecyclerView.Adapter<CosmeticAdapter.Cosmet
     public void onBindViewHolder(@NonNull CosmeticViewHolder holder, int position) {
         Cosmetics cosmetic = cosmeticsList.get(position);
         holder.bind(cosmetic);
+        holder.cosmeticCardView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, CosmeticDetailActivity.class);
+            intent.putExtra("cosmetic_id", cosmetic.getId());
+            Log.d("getID", "getID 1: " + cosmetic.getId());
+            context.startActivity(intent);
+        });
     }
 
     @Override
     public int getItemCount() {
-        return cosmeticsList.size();
+        return cosmeticsList == null ? 0 : cosmeticsList.size();
     }
 
     static class CosmeticViewHolder extends RecyclerView.ViewHolder {
@@ -49,6 +59,7 @@ public class CosmeticAdapter extends RecyclerView.Adapter<CosmeticAdapter.Cosmet
         ImageView imageView;
         TextView tvTitle, tvRating, tvSoldQuantity, tvPrice;
         ImageButton btnAddToCart;
+        CardView cosmeticCardView;
 
         public CosmeticViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -57,16 +68,18 @@ public class CosmeticAdapter extends RecyclerView.Adapter<CosmeticAdapter.Cosmet
             tvRating = itemView.findViewById(R.id.tvRating);
             tvSoldQuantity = itemView.findViewById(R.id.tvSoldQuantity);
             tvPrice = itemView.findViewById(R.id.tvPrice);
+            cosmeticCardView = itemView.findViewById(R.id.cardView);
             btnAddToCart = itemView.findViewById(R.id.btnAddToCart);
         }
 
         public void bind(Cosmetics cosmetic) {
             tvTitle.setText(cosmetic.getCosmetics_name());
             tvPrice.setText(String.format("%,d", cosmetic.getPrice()));
+
+        }
 //            tvPrice.setText(String.valueOf(cosmetic.getPrice()));
 //            set price format add . e.g: 1000000 -> 1.000.000
-            // Update other views based on the cosmetic data
-            // For example, you might want to use an image loading library to load the image from the URL
-        }
+        // Update other views based on the cosmetic data
+        // For example, you might want to use an image loading library to load the image from the URL
     }
 }

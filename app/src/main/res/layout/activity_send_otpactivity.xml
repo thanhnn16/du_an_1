@@ -29,8 +29,9 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/primaryColor"
             android:enabled="false"
-            android:paddingHorizontal="8dp"
+            android:paddingHorizontal="4dp"
             android:text="+84"
             android:textSize="20sp" />
 
@@ -38,11 +39,12 @@
             android:id="@+id/edtPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/primaryColor"
             android:hint="123 456 789"
             android:inputType="phone"
             android:maxLength="9"
             android:maxLines="1"
-            android:paddingHorizontal="8dp"
+            android:paddingHorizontal="4dp"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -51,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="64dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="@color/primaryColorDisabled"
         android:enabled="false"
         android:text="@string/nhan_ma_otp"
@@ -65,15 +67,15 @@
         android:id="@+id/animationView"
         android:layout_width="wrap_content"
         android:layout_height="64dp"
-        app:lottie_rawRes="@raw/butterfly"
-        app:lottie_speed="2"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/btnSend"
+        app:layout_constraintEnd_toEndOf="@id/btnSend"
+        app:layout_constraintStart_toStartOf="@id/btnSend"
+        app:layout_constraintTop_toTopOf="@id/btnSend"
         app:lottie_autoPlay="false"
         app:lottie_loop="true"
-        app:layout_constraintStart_toStartOf="@id/btnSend"
-        app:layout_constraintEnd_toEndOf="@id/btnSend"
-        app:layout_constraintTop_toTopOf="@id/btnSend"
-        app:layout_constraintBottom_toBottomOf="@id/btnSend" />
+        app:lottie_rawRes="@raw/butterfly"
+        app:lottie_speed="2" />
 
     <TextView
         android:id="@+id/tvNotNow"

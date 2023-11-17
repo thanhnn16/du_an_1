@@ -46,4 +46,27 @@
     <string name="title">Tiêu đề</string>
     <string name="go_back">Trở lại</string>
     <string name="notification_caps">THÔNG BÁO</string>
+    <string name="sign_up">Đăng ký</string>
+    <string name="re_password">Nhập lại mật khẩu</string>
+    <string name="password">Mật khẩu</string>
+    <string name="password_not_match">Mật khẩu không khớp</string>
+    <string name="phone_number_already_exists">Số điện thoại đã được đăng ký</string>
+    <string name="error">Lỗi</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="forgot_password_question">Quên mật khẩu?</string>
+    <string name="cosmetic_cap">MỸ PHẨM</string>
+    <string name="treatment_cap">LIỆU TRÌNH</string>
+    <string name="news_cap">TIN TỨC</string>
+    <string name="best_seller_cap">BÁN CHẠY</string>
+    <string name="i_wanna_reg_later">Tôi muốn đăng ký sau</string>
+    <string name="cosmetic_detail">Chi tiết sản phẩm</string>
+    <string name="spa_s_address">Tầng 1 Shophouse P1 - SH02 Vinhome Central Park</string>
+    <string name="spa_s_phone">(+84) 986 910 920 (Zalo)</string>
+    <string name="spa_s_phone_2">(+84) 889 130 222</string>
+    <string name="minus">-</string>
+    <string name="qty_caps">SỐ LƯỢNG</string>
+    <string name="plus">\+</string>
+    <string name="des_prod">MÔ TẢ SẢN PHẨM</string>
+    <string name="call_me">Gọi cho tôi</string>
+    <string name="comment">Đánh giá</string>
 </resources>

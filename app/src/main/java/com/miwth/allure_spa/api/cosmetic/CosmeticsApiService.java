@@ -4,7 +4,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface CosmeticApiService {
+public interface CosmeticsApiService {
 
     @GET("cosmetics/{id}")
     Call<CosmeticsResponse> getCosmetic(@Path("id") int id);
