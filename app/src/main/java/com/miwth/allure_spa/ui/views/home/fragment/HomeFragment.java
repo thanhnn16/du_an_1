@@ -2,7 +2,6 @@ package com.miwth.allure_spa.ui.views.home.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,31 +15,39 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.miwth.allure_spa.R;
-import com.miwth.allure_spa.api.cosmetic.CosmeticRepository;
+import com.miwth.allure_spa.api.auth.TokenManager;
+import com.miwth.allure_spa.api.cosmetic.CosmeticsRepository;
 import com.miwth.allure_spa.api.cosmetic.CosmeticsResponse;
+import com.miwth.allure_spa.api.treatment.TreatmentsRepository;
+import com.miwth.allure_spa.api.treatment.TreatmentsResponse;
 import com.miwth.allure_spa.model.Cosmetics;
-import com.miwth.allure_spa.model.Treatment;
+import com.miwth.allure_spa.model.Treatments;
 import com.miwth.allure_spa.ui.adapter.CosmeticAdapter;
 import com.miwth.allure_spa.ui.adapter.TreatmentAdapter;
+import com.miwth.allure_spa.ui.views.SeeMoreActivity;
 import com.miwth.allure_spa.ui.views.WebviewActivity;
 import com.miwth.allure_spa.util.callback.SideMenuCallBack;
 
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = "HOME_FRAGMENT";
     LinearLayout llIntroduction, llVoucher, llService, llSanPhamDocQuyen, llSanPhamMayMoc, llCourse, llNews, llContact;
     RecyclerView rvCosmetic, rvTreatment, rvNews, rvBestSeller;
+    LinearLayout tvSeeMoreCosmetic, tvSeeMoreTreatment, tvSeeMoreNews, tvSeeMoreBestSeller;
     ArrayList<Cosmetics> cosmeticsArrayList;
-    ArrayList<Treatment> treatmentArrayList;
+    ArrayList<Treatments> treatmentArrayList;
     Context context;
     CosmeticAdapter cosmeticAdapter;
     TreatmentAdapter treatmentAdapter;
-    SharedPreferences sharedPreferences;
+    String token;
+    Intent intent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,14 +59,18 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View homeFragmentView = inflater.inflate(R.layout.fragment_home, container, false);
         context = getActivity();
-        sharedPreferences = context.getSharedPreferences("api_tokens", Context.MODE_PRIVATE);
+        token = new TokenManager(context).getToken();
 
         rvCosmetic = homeFragmentView.findViewById(R.id.rvCosmetic);
         rvTreatment = homeFragmentView.findViewById(R.id.rvService);
         rvNews = homeFragmentView.findViewById(R.id.rvNews);
         rvBestSeller = homeFragmentView.findViewById(R.id.rvBestSeller);
 
-        getData();
+        tvSeeMoreBestSeller = homeFragmentView.findViewById(R.id.best_seller_see_more);
+        tvSeeMoreCosmetic = homeFragmentView.findViewById(R.id.cosmetic_see_more);
+        tvSeeMoreTreatment = homeFragmentView.findViewById(R.id.service_see_more);
+        tvSeeMoreNews = homeFragmentView.findViewById(R.id.news_see_more);
+
 
         llIntroduction = homeFragmentView.findViewById(R.id.llIntroduction);
         llVoucher = homeFragmentView.findViewById(R.id.llVoucher);
@@ -120,28 +131,47 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
+        setUpSeeMore();
+        getData();
         return homeFragmentView;
     }
 
     private void getData() {
-        CosmeticRepository cosmeticRepository = new CosmeticRepository(sharedPreferences.getString("token", null));
-        cosmeticRepository.getCosmetics().enqueue(new Callback<CosmeticsResponse>() {
-            @Override
-            public void onResponse(Call<CosmeticsResponse> call, Response<CosmeticsResponse> response) {
-                if (response.isSuccessful()) {
-                    cosmeticsArrayList = (ArrayList<Cosmetics>) response.body().getData();
-                    Log.d(TAG, "onResponse: " + cosmeticsArrayList.get(0).toString());
-                    Log.d(TAG, "onResponse: " + response.body());
-                    setUpRecyclerView();
-                }
-            }
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
 
-            @Override
-            public void onFailure(Call<CosmeticsResponse> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.getMessage());
+        Callable<ArrayList<Cosmetics>> getCosmeticsTask = () -> {
+            CosmeticsRepository cosmeticRepository = new CosmeticsRepository();
+            Response<CosmeticsResponse> response = cosmeticRepository.getCosmetics().execute();
+            if (response.isSuccessful()) {
+                ArrayList<Cosmetics> allCosmetics = (ArrayList<Cosmetics>) response.body().getData();
+                return new ArrayList<>(allCosmetics.subList(0, Math.min(allCosmetics.size(), 4)));
+            } else {
+                return new ArrayList<>();
             }
-        });
+        };
+
+        Callable<ArrayList<Treatments>> getTreatmentsTask = () -> {
+            TreatmentsRepository treatmentsRepository = new TreatmentsRepository();
+            Response<TreatmentsResponse> response = treatmentsRepository.getTreatments().execute();
+            if (response.isSuccessful()) {
+                ArrayList<Treatments> allTreatments = (ArrayList<Treatments>) response.body().getData();
+                return new ArrayList<>(allTreatments.subList(0, Math.min(allTreatments.size(), 4)));
+            } else {
+                return new ArrayList<>();
+            }
+        };
+
+        Future<ArrayList<Cosmetics>> cosmeticsFuture = executorService.submit(getCosmeticsTask);
+        Future<ArrayList<Treatments>> treatmentsFuture = executorService.submit(getTreatmentsTask);
+
+        try {
+            cosmeticsArrayList = cosmeticsFuture.get();
+            treatmentArrayList = treatmentsFuture.get();
+            Log.d(TAG, "getData: " + treatmentArrayList.get(0).getTreatmentName());
+            setUpRecyclerView();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setUpRecyclerView() {
@@ -150,11 +180,37 @@ public class HomeFragment extends Fragment {
         rvNews.setHasFixedSize(true);
         rvBestSeller.setHasFixedSize(true);
 
+        Log.d(TAG, "setUpRecyclerView: " + cosmeticsArrayList.size());
+        Log.d(TAG, "setUpRecyclerView: " + treatmentArrayList.size());
         cosmeticAdapter = new CosmeticAdapter(context, cosmeticsArrayList);
+        treatmentAdapter = new TreatmentAdapter(context, treatmentArrayList);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        rvCosmetic.setLayoutManager(linearLayoutManager);
+
+        rvCosmetic.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         rvCosmetic.setAdapter(cosmeticAdapter);
 
+        rvTreatment.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        rvTreatment.setAdapter(treatmentAdapter);
+
+    }
+
+    private void setUpSeeMore() {
+        intent = new Intent(context, SeeMoreActivity.class);
+        tvSeeMoreCosmetic.setOnClickListener(v -> {
+            intent.putExtra("title", getResources().getString(R.string.cosmetic_cap));
+            startActivity(intent);
+        });
+        tvSeeMoreTreatment.setOnClickListener(v -> {
+            intent.putExtra("title", getResources().getString(R.string.treatment_cap));
+            startActivity(intent);
+        });
+        tvSeeMoreNews.setOnClickListener(v -> {
+            intent.putExtra("title", getResources().getString(R.string.news_cap));
+            startActivity(intent);
+        });
+        tvSeeMoreBestSeller.setOnClickListener(v -> {
+            intent.putExtra("title", getResources().getString(R.string.best_seller_cap));
+            startActivity(intent);
+        });
     }
 }

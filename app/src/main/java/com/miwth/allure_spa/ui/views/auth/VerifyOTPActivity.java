@@ -22,7 +22,6 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.miwth.allure_spa.R;
-import com.miwth.allure_spa.ui.views.home.HomeActivity;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -209,12 +208,12 @@ public class VerifyOTPActivity extends AppCompatActivity {
 
     private void handleSignInSuccess(FirebaseUser user) {
         Log.d(TAG, "signInWithCredential:success");
-        Intent intent = new Intent(VerifyOTPActivity.this, HomeActivity.class);
+        Intent intent = new Intent(VerifyOTPActivity.this, RegisterActivity.class);
         if (user.getPhoneNumber() != null) {
-            Toast.makeText(VerifyOTPActivity.this, "Chào " + user.getPhoneNumber(), Toast.LENGTH_SHORT).show();
+            intent.putExtra("phoneNumber", phoneNumber);
         }
         startActivity(intent);
-        finishAffinity();
+        finish();
     }
 
     private void handleSignInFailure(Exception exception) {

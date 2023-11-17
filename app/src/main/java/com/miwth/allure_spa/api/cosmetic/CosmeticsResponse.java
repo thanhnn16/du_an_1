@@ -8,11 +8,13 @@ public class CosmeticsResponse {
     private boolean success;
     private String message;
     private List<Cosmetics> data;
+    private Cosmetics cosmetic;
 
-    public CosmeticsResponse(boolean success, String message, List<Cosmetics> data) {
+    public CosmeticsResponse(boolean success, String message, List<Cosmetics> data, Cosmetics cosmetic) {
         this.success = success;
         this.message = message;
         this.data = data;
+        this.cosmetic = cosmetic;
     }
 
     public boolean isSuccess() {
@@ -25,5 +27,9 @@ public class CosmeticsResponse {
 
     public List<Cosmetics> getData() {
         return data;
+    }
+
+    public Cosmetics getCosmetic() {
+        return getData().get(0);
     }
 }

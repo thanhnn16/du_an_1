@@ -7,4 +7,9 @@
     <color name="primaryColorDisabled">#57EDC06C</color>
     <color name="transparent">#00000000</color>
     <color name="onboarding_bg">#F8F2E7</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#00FF00</color>
+    <color name="colorName">#EDC06C</color>
+    <color name="profile">#80454545</color>
+
 </resources>

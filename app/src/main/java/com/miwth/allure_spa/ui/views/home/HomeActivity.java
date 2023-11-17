@@ -1,6 +1,7 @@
 package com.miwth.allure_spa.ui.views.home;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -98,6 +99,11 @@ public class HomeActivity extends AppCompatActivity implements SideMenuCallBack,
                 Log.d(TAG, "onCreate: account info");
             } else if (id == R.id.logout) {
                 Log.d(TAG, "onCreate: logout");
+                SharedPreferences sharedPreferences = getSharedPreferences("api_tokens", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+                Log.d(TAG, "logout: " + sharedPreferences.getString("token", ""));
                 mAuth.signOut();
                 startActivity(new Intent(HomeActivity.this, WelcomeActivity.class));
                 finishAffinity();
