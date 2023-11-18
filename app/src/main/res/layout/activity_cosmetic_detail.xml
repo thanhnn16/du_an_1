@@ -106,12 +106,13 @@
                 android:src="@drawable/sun" />
 
             <LinearLayout
-                android:id="@+id/llCosmeticDetailParentDescription"
+                android:id="@+id/llCongDung"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/llCosmeticDetailPrice"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_toEndOf="@id/ivCosmeticDetailSun"
                 android:orientation="vertical" />
 
@@ -119,7 +120,7 @@
                 android:id="@+id/llCosmeticDetailAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/llCosmeticDetailParentDescription"
+                android:layout_below="@+id/llCongDung"
                 android:layout_marginHorizontal="16dp"
                 android:gravity="top"
                 android:orientation="horizontal">
@@ -137,7 +138,7 @@
                     android:text="@string/spa_s_address"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="normal" />
 
             </LinearLayout>
 
@@ -162,7 +163,7 @@
                     android:text="@string/spa_s_phone"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="normal" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -179,7 +180,7 @@
                     android:text="@string/spa_s_phone_2"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="normal" />
 
             </LinearLayout>
 
@@ -187,9 +188,9 @@
                 android:id="@+id/tvSoLuong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@id/llSelectQty"
-                android:layout_alignBottom="@id/llSelectQty"
+                android:layout_below="@id/llCosmeticDetailParentPhone"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
                 android:text="@string/qty_caps"
                 android:textColor="@color/primaryColor"
@@ -200,47 +201,46 @@
                 android:id="@+id/llSelectQty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/llCosmeticDetailParentPhone"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_below="@id/tvSoLuong"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
                 android:background="@drawable/button_bg_outline"
                 android:gravity="center_horizontal|center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingVertical="4dp"
+                android:textAlignment="center">
 
-                <TextView
+                <Button
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:padding="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:backgroundTint="@color/transparent"
                     android:text="@string/minus"
                     android:textAlignment="center"
-                    android:textColor="@color/primaryColor"
-                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvQty"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="4dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:padding="8dp"
                     android:text="1"
                     android:textAlignment="center"
-                    android:textColor="@color/primaryColor"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <Button
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:padding="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:backgroundTint="@color/transparent"
                     android:text="@string/plus"
                     android:textAlignment="center"
-                    android:textColor="@color/primaryColor"
-                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -249,7 +249,7 @@
                 android:id="@+id/tvMoTaSP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvSoLuong"
+                android:layout_below="@id/llSelectQty"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:gravity="center_vertical"
@@ -259,12 +259,13 @@
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:id="@+id/llCosmeticDetailDescription"
+                android:id="@+id/llMoTaSP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvMoTaSP"
-                android:layout_marginHorizontal="16dp"
+                android:layout_alignStart="@id/llCongDung"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="32dp"
                 android:orientation="vertical" />
 
         </RelativeLayout>
