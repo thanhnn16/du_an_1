@@ -30,6 +30,6 @@ public class CosmeticsResponse {
     }
 
     public Cosmetics getCosmetic() {
-        return getData().get(0);
+        return cosmetic;
     }
 }

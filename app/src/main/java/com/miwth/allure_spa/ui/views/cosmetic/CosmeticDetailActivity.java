@@ -22,18 +22,19 @@ import retrofit2.Response;
 public class CosmeticDetailActivity extends AppCompatActivity {
     private static final String TAG = "COSMETIC_DETAIL_ACTIVITY";
     CosmeticsRepository cosmeticsRepository;
-    TextView tvCosmeticName, tvCosmeticPrice, tvMoTaSP;
-    LinearLayout detailCosmetic;
+    TextView tvCosmeticName, tvCosmeticPrice;
+    LinearLayout llCongDung, llMoTaSP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cosmetic_detail);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.transparent, null));
 
         tvCosmeticName = findViewById(R.id.tvCosmeticDetailName);
         tvCosmeticPrice = findViewById(R.id.tvCosmeticDetailPrice);
-        tvMoTaSP = findViewById(R.id.tvMoTaSP);
-        detailCosmetic = findViewById(R.id.llCosmeticDetailParentDescription);
+        llCongDung = findViewById(R.id.llCongDung);
+        llMoTaSP = findViewById(R.id.llMoTaSP);
 
 
         Intent intent = getIntent();
@@ -51,10 +52,22 @@ public class CosmeticDetailActivity extends AppCompatActivity {
                         Toast.makeText(CosmeticDetailActivity.this, "Body null", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    Cosmetics cosmetic = (Cosmetics) response.body().getData();
+                    Cosmetics cosmetic = response.body().getCosmetic();
                     tvCosmeticName.setText(cosmetic.getCosmetics_name());
-                    tvCosmeticPrice.setText(String.valueOf(cosmetic.getPrice()));
-                    tvMoTaSP.setText(cosmetic.getDescriptions());
+                    String price = String.format("%,d", cosmetic.getPrice() + " VNĐ");
+                    tvCosmeticPrice.setText(price);
+                    String[] congDung = cosmetic.getPurpose().split("\\. ");
+                    String[] moTaSP = cosmetic.getDescriptions().split("\\. ");
+                    for (String s : congDung) {
+                        TextView textView = new TextView(CosmeticDetailActivity.this);
+                        textView.setText("•\t\t" + s);
+                        llCongDung.addView(textView);
+                    }
+                    for (String s : moTaSP) {
+                        TextView textView = new TextView(CosmeticDetailActivity.this);
+                        textView.setText("•\t\t" + s);
+                        llMoTaSP.addView(textView);
+                    }
                     Log.d(TAG, "onResponse: " + cosmetic.getCosmetics_name());
                 } else {
                     Log.d(TAG, "onResponse: " + response.message());
