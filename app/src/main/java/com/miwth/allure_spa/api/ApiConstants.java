@@ -16,13 +16,13 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 
 public class ApiConstants {
     //    BASE URL
-    public static final String API_BASE_URL = "http://192.168.1.10:8000/api/";
+    public static final String API_BASE_URL = "http://10.0.1.172:8000/api/";
 //    public static final String API_BASE_URL = "http://172.16.100.118:8000/api/";
 
     //    RESOURCE URL
     public static final String RESOURCE_URL = "http://192.168.1.10:8000/storage/";
     //    AUTH URL
-    public static final String LOGIN_URL = "login";
+    public static final String LOGIN_URL = "login-get-token";
     public static final String REGISTER_URL = "register";
     //    COSMETICS URL
     public static final String COSMETICS_URL = "cosmetics";

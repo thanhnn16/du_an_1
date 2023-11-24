@@ -1,6 +1,5 @@
 package com.miwth.allure_spa.api.treatment;
 
-import com.miwth.allure_spa.model.Cosmetics;
 import com.miwth.allure_spa.model.Treatments;
 
 import java.util.List;
@@ -8,14 +7,15 @@ import java.util.List;
 public class TreatmentsResponse {
     private boolean success;
     private String message;
-    private List<Treatments> data;
-    private Treatments treatments;
+    private List<Treatments> treatments;
+    private Treatments treatment;
 
 
-    public TreatmentsResponse(boolean success, String message, List<Treatments> data) {
+    public TreatmentsResponse(boolean success, String message, List<Treatments> treatments, Treatments treatment) {
         this.success = success;
         this.message = message;
-        this.data = data;
+        this.treatments = treatments;
+        this.treatment = treatment;
     }
 
     public boolean isSuccess() {
@@ -27,11 +27,11 @@ public class TreatmentsResponse {
     }
 
     public List<Treatments> getData() {
-        return data;
+        return treatments;
     }
 
     public Treatments getTreatment() {
-        return treatments;
+        return treatment;
 
     }
 }

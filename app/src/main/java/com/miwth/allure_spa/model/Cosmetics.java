@@ -1,34 +1,39 @@
 package com.miwth.allure_spa.model;
 
+import com.squareup.moshi.Json;
+
 import java.util.Date;
 
 public class Cosmetics {
     private int id;
-    private String cosmetics_name;
-    private int cosmetics_category_id;
-    private String descriptions;
+    @Json(name = "cosmetics_name")
+    private String cosmeticsName;
+    @Json(name = "cosmetics_category_id")
+    private int cosmeticsCategoryId;
+    private String description;
     private int price;
     private String purpose;
     private String ingredients;
-    private String how_to_use;
+    @Json(name = "how_to_use")
+    private String howToUse;
     private String image;
-    private Date created_at;
-    private Date last_update;
+    @Json(name = "created_at")
+    private Date createdAt;
+    @Json(name = "updated_at")
+    private Date updatedAt;
 
-    public Cosmetics(int id, String cosmeticsName, int cosmeticsCategoryId, String descriptions,
-                     int price, String purpose, String ingredients, String howToUse, String image,
-                     Date createdAt, Date lastUpdate) {
+    public Cosmetics(int id, String cosmeticsName, int cosmeticsCategoryId, String descriptions, int price, String purpose, String ingredients, String howToUse, String image, Date createdAt, Date lastUpdate) {
         this.id = id;
-        this.cosmetics_name = cosmeticsName;
-        this.cosmetics_category_id = cosmeticsCategoryId;
-        this.descriptions = descriptions;
+        this.cosmeticsName = cosmeticsName;
+        this.cosmeticsCategoryId = cosmeticsCategoryId;
+        this.description = descriptions;
         this.price = price;
         this.purpose = purpose;
         this.ingredients = ingredients;
-        this.how_to_use = howToUse;
+        this.howToUse = howToUse;
         this.image = image;
-        this.created_at = createdAt;
-        this.last_update = lastUpdate;
+        this.createdAt = createdAt;
+        this.updatedAt = lastUpdate;
     }
 
     public int getId() {
@@ -39,28 +44,28 @@ public class Cosmetics {
         this.id = id;
     }
 
-    public String getCosmetics_name() {
-        return cosmetics_name;
+    public String getCosmeticsName() {
+        return cosmeticsName;
     }
 
-    public void setCosmetics_name(String cosmetics_name) {
-        this.cosmetics_name = cosmetics_name;
+    public void setCosmeticsName(String cosmeticsName) {
+        this.cosmeticsName = cosmeticsName;
     }
 
-    public int getCosmetics_category_id() {
-        return cosmetics_category_id;
+    public int getCosmeticsCategoryId() {
+        return cosmeticsCategoryId;
     }
 
-    public void setCosmetics_category_id(int cosmetics_category_id) {
-        this.cosmetics_category_id = cosmetics_category_id;
+    public void setCosmeticsCategoryId(int cosmeticsCategoryId) {
+        this.cosmeticsCategoryId = cosmeticsCategoryId;
     }
 
-    public String getDescriptions() {
-        return descriptions;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescriptions(String descriptions) {
-        this.descriptions = descriptions;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getPrice() {
@@ -87,12 +92,12 @@ public class Cosmetics {
         this.ingredients = ingredients;
     }
 
-    public String getHow_to_use() {
-        return how_to_use;
+    public String getHowToUse() {
+        return howToUse;
     }
 
-    public void setHow_to_use(String how_to_use) {
-        this.how_to_use = how_to_use;
+    public void setHowToUse(String howToUse) {
+        this.howToUse = howToUse;
     }
 
     public String getImage() {
@@ -103,37 +108,25 @@ public class Cosmetics {
         this.image = image;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Date getLast_update() {
-        return last_update;
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setLast_update(Date last_update) {
-        this.last_update = last_update;
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override
     public String toString() {
-        return "Cosmetics{" +
-                "id=" + id +
-                ", cosmetics_name='" + getCosmetics_name() + '\'' +
-                ", cosmetics_category_id=" + getCosmetics_category_id() +
-                ", descriptions='" + getDescriptions() + '\'' +
-                ", price=" + getPrice() +
-                ", purpose='" + getPurpose() + '\'' +
-                ", ingredients='" + getIngredients() + '\'' +
-                ", how_to_use='" + getHow_to_use() + '\'' +
-                ", image='" + getImage() + '\'' +
-                ", created_at=" + getCreated_at() +
-                ", last_update=" + getLast_update() +
-                '}';
+        return "Cosmetics{" + "id=" + id + ", cosmetics_name='" + getCosmeticsName() + '\'' + ", cosmetics_category_id=" + getCosmeticsCategoryId() + ", descriptions='" + getDescription() + '\'' + ", price=" + getPrice() + ", purpose='" + getPurpose() + '\'' + ", ingredients='" + getIngredients() + '\'' + ", how_to_use='" + getHowToUse() + '\'' + ", image='" + getImage() + '\'' + ", created_at=" + getCreatedAt() + ", last_update=" + getUpdatedAt() + '}';
     }
 }
 

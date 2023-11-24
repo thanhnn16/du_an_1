@@ -32,6 +32,7 @@ public class TreatmentDetails extends AppCompatActivity {
     private static final String TAG = "TREATMENT_DETAILS_ACTIVITY";
     TreatmentsRepository treatmentsRepository;
     TextView tvTreatmentName, tvTreatmentPrice;
+    LinearLayout llMoTaLT;
 
     CardView cvBookNow;
 
@@ -42,7 +43,7 @@ public class TreatmentDetails extends AppCompatActivity {
 
         tvTreatmentName = findViewById(R.id.tvTreatmentDetailName);
         tvTreatmentPrice = findViewById(R.id.tvTreatmentDetailPrice);
-
+        llMoTaLT = findViewById(R.id.llMoTaLT);
         cvBookNow = findViewById(R.id.cvBookNow);
 
         cvBookNow.setOnClickListener(v -> {
@@ -69,6 +70,13 @@ public class TreatmentDetails extends AppCompatActivity {
                     tvTreatmentName.setText(treatment.getTreatmentName());
                     String price = String.format("%,d VNĐ", treatment.getPrice());
                     tvTreatmentPrice.setText(price);
+                    String[] moTa = treatment.getDescription().split("\\. ");
+                    for (String s : moTa) {
+                        TextView textView = new TextView(TreatmentDetails.this);
+                        textView.setText("•\t\t" + s);
+                        llMoTaLT.addView(textView);
+                    }
+
 
                     Log.d(TAG, "onResponse: " + treatment.getTreatmentName());
                 } else {

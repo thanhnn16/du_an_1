@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.miwth.allure_spa.R;
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.white, null));
 
         userRepository = new UserRepository();
 
@@ -41,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             String password = edtPassword.getText().toString();
             userRepository.login(phoneNumber, password).enqueue(new Callback<AuthResponse>() {
                 @Override
-                public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                public void onResponse(@NonNull Call<AuthResponse> call, @NonNull Response<AuthResponse> response) {
                     if (response.isSuccessful()) {
                         if (response.body() == null) {
                             Log.d(TAG, "onResponse: " + response.errorBody());

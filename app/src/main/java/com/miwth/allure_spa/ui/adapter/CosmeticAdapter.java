@@ -73,7 +73,7 @@ public class CosmeticAdapter extends RecyclerView.Adapter<CosmeticAdapter.Cosmet
         }
 
         public void bind(Cosmetics cosmetic) {
-            tvTitle.setText(cosmetic.getCosmetics_name());
+            tvTitle.setText(cosmetic.getCosmeticsName());
             tvPrice.setText(String.format("%,d", cosmetic.getPrice()));
 
         }

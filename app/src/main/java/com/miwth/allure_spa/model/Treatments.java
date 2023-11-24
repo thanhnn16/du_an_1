@@ -6,13 +6,11 @@ import java.util.Date;
 
 public class Treatments {
     private int id;
-
-
     @Json(name = "treatment_name")
     private String treatmentName;
     @Json(name = "treatment_category_id")
     private int treatmentCategoryId;
-    private String descriptions;
+    private String description;
     private String purpose;
 
     @Json(name = "execution_time")
@@ -21,8 +19,8 @@ public class Treatments {
     private String image;
     @Json(name = "created_at")
     private Date createdAt;
-    @Json(name = "last_update")
-    private Date lastUpdate;
+    @Json(name = "updated_at")
+    private Date updatedAt;
 
     public Treatments() {
     }
@@ -39,8 +37,8 @@ public class Treatments {
         return treatmentCategoryId;
     }
 
-    public String getDescriptions() {
-        return descriptions;
+    public String getDescription() {
+        return description;
     }
 
     public String getExecutionTime() {
@@ -59,16 +57,11 @@ public class Treatments {
         return createdAt;
     }
 
-    public Date getLastUpdate() {
-        return lastUpdate;
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 
     public String getPurpose() {
         return purpose;
-    }
-
-    public String getDescription() {
-        return descriptions;
-
     }
 }

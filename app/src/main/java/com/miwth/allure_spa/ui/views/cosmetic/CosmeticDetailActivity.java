@@ -53,11 +53,12 @@ public class CosmeticDetailActivity extends AppCompatActivity {
                         return;
                     }
                     Cosmetics cosmetic = response.body().getCosmetic();
-                    tvCosmeticName.setText(cosmetic.getCosmetics_name());
-                    String price = String.format("%,d", cosmetic.getPrice() + " VNĐ");
-                    tvCosmeticPrice.setText(price);
+                    tvCosmeticName.setText(cosmetic.getCosmeticsName());
+                    int price = cosmetic.getPrice();
+                    String formattedPrice = String.format("%,d", price) + " VNĐ";
+                    tvCosmeticPrice.setText(formattedPrice);
                     String[] congDung = cosmetic.getPurpose().split("\\. ");
-                    String[] moTaSP = cosmetic.getDescriptions().split("\\. ");
+                    String[] moTaSP = cosmetic.getDescription().split("\\. ");
                     for (String s : congDung) {
                         TextView textView = new TextView(CosmeticDetailActivity.this);
                         textView.setText("•\t\t" + s);
@@ -68,7 +69,7 @@ public class CosmeticDetailActivity extends AppCompatActivity {
                         textView.setText("•\t\t" + s);
                         llMoTaSP.addView(textView);
                     }
-                    Log.d(TAG, "onResponse: " + cosmetic.getCosmetics_name());
+                    Log.d(TAG, "onResponse: " + cosmetic.getCosmeticsName());
                 } else {
                     Log.d(TAG, "onResponse: " + response.message());
                     Toast.makeText(CosmeticDetailActivity.this, "Lỗi", Toast.LENGTH_SHORT).show();

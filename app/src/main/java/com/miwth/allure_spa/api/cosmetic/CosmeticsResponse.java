@@ -7,13 +7,13 @@ import java.util.List;
 public class CosmeticsResponse {
     private boolean success;
     private String message;
-    private List<Cosmetics> data;
+    private List<Cosmetics> cosmetics;
     private Cosmetics cosmetic;
 
-    public CosmeticsResponse(boolean success, String message, List<Cosmetics> data, Cosmetics cosmetic) {
+    public CosmeticsResponse(boolean success, String message, List<Cosmetics> cosmetics, Cosmetics cosmetic) {
         this.success = success;
         this.message = message;
-        this.data = data;
+        this.cosmetics = cosmetics;
         this.cosmetic = cosmetic;
     }
 
@@ -26,7 +26,7 @@ public class CosmeticsResponse {
     }
 
     public List<Cosmetics> getData() {
-        return data;
+        return cosmetics;
     }
 
     public Cosmetics getCosmetic() {

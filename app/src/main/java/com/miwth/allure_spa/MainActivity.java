@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, OnboardingActivity.class));
                 finish();
             } else {
-                startActivity(new Intent(MainActivity.this, TreatmentDetails.class));
-//                startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
+//                startActivity(new Intent(MainActivity.this, TreatmentDetails.class));
+                startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
                 finish();
             }
         }, 1000);
