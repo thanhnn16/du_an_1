@@ -12,6 +12,7 @@ import androidx.core.splashscreen.SplashScreen;
 
 import com.miwth.allure_spa.api.auth.TokenManager;
 import com.miwth.allure_spa.ui.views.home.HomeActivity;
+import com.miwth.allure_spa.ui.views.treatment.TreatmentDetails;
 import com.miwth.allure_spa.ui.views.welcome.OnboardingActivity;
 import com.miwth.allure_spa.ui.views.welcome.WelcomeActivity;
 
@@ -51,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, OnboardingActivity.class));
                 finish();
             } else {
-                startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
+                startActivity(new Intent(MainActivity.this, TreatmentDetails.class));
+//                startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
                 finish();
             }
         }, 1000);

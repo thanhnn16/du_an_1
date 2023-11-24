@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.model.FunctionItem;
 import com.miwth.allure_spa.ui.adapter.ProfileListAdapter;
+import com.miwth.allure_spa.ui.views.welcome.WelcomeActivity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +28,8 @@ public class ProfileFragment extends Fragment {
     private ImageButton imgBack;
 
     private List<FunctionItem> functionList;
+
+    private LinearLayout llLogout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +59,22 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().onBackPressed();
+            }
+        });
+
+        llLogout = view.findViewById(R.id.llLogout);
+        llLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), WelcomeActivity.class);
+                startActivity(intent);
+
+            }
+        });
         return view;
     }
 }

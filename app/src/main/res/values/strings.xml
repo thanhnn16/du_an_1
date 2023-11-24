@@ -69,4 +69,10 @@
     <string name="des_prod">MÔ TẢ SẢN PHẨM</string>
     <string name="call_me">Gọi cho tôi</string>
     <string name="comment">Đánh giá</string>
+    <string name="treatment_detail">Chi tiết dịch vụ</string>
+    <string name="treament_cap">Chăm sóc da mặt dành cho nam và nữ</string>
+    <string name="bookNow">ĐẶT LỊCH NGAY</string>
+    <string name="BookInf">Thông tin đặt lịch</string>
+    <string name="SelectDate">Chọn ngày</string>
+    <string name="selectTime">Chọn giờ</string>
 </resources>

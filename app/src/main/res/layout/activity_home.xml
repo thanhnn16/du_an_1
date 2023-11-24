@@ -24,15 +24,14 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="65sp"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             android:background="@color/white"
             app:itemIconTint="@drawable/bottom_navigation_selector"
-            app:itemTextColor="@drawable/bottom_navigation_selector"
+            app:itemActiveIndicatorStyle="@color/white"
             app:labelVisibilityMode="selected"
-            app:menu="@menu/bottom_navigation_menu" />
-
+            app:menu="@menu/bottom_navigation_menu"/>
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView

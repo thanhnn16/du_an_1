@@ -19,6 +19,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.views.treatment.BookService.BookInformation"
+            android:exported="false" />
+        <activity
             android:name=".ui.views.auth.LoginActivity"
             android:exported="false" />
         <activity
@@ -50,6 +53,9 @@
             android:exported="false" />
         <activity
             android:name=".ui.views.welcome.OnboardingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.home.fragment.Profile.Settings"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

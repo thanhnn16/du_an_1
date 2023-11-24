@@ -6,11 +6,15 @@ import java.util.Date;
 
 public class Treatments {
     private int id;
+
+
     @Json(name = "treatment_name")
     private String treatmentName;
     @Json(name = "treatment_category_id")
     private int treatmentCategoryId;
     private String descriptions;
+    private String purpose;
+
     @Json(name = "execution_time")
     private String executionTime;
     private int price;
@@ -57,5 +61,14 @@ public class Treatments {
 
     public Date getLastUpdate() {
         return lastUpdate;
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public String getDescription() {
+        return descriptions;
+
     }
 }
