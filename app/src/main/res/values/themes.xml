@@ -32,4 +32,11 @@
 
 
 
+    <style name="Custom.MaterialDatePicker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorOnPrimary">@color/primaryColor</item>
+    </style>
+
+
+
 </resources>

@@ -1,3 +1,4 @@
+// File: app/src/main/java/com/miwth/allure_spa/ui/adapter/TimeSlotAdapter.java
 package com.miwth.allure_spa.ui.adapter;
 
 import android.content.Context;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.model.TimeSlot;
+import com.miwth.allure_spa.ui.views.treatment.BookService.BookInformation;
 
 import java.util.List;
 
@@ -19,11 +21,12 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
 
     private List<TimeSlot> timeSlots;
     private Context context;
-    private int selectedPosition = -1; // Add this line
+    private RecyclerView recyclerView;
 
-    public TimeSlotAdapter(Context context, List<TimeSlot> timeSlots) {
+    public TimeSlotAdapter(Context context, List<TimeSlot> timeSlots, RecyclerView recyclerView) {
         this.context = context;
         this.timeSlots = timeSlots;
+        this.recyclerView = recyclerView;
     }
 
     @NonNull
@@ -36,28 +39,28 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
     @Override
     public void onBindViewHolder(@NonNull TimeSlotViewHolder holder, int position) {
         TimeSlot timeSlot = timeSlots.get(position);
+
         holder.tvTime.setText(timeSlot.getTime());
         holder.tvTimeStatus.setText(timeSlot.getStatus());
 
-        // Set the background of the item based on whether it's selected
-        if (position == selectedPosition) {
-            holder.itemView.setBackgroundResource(R.drawable.ic_launcher_background);
+        if (position == ((BookInformation) context).selectedPosition && recyclerView == ((BookInformation) context).selectedRecyclerView) {
+            holder.itemView.setBackgroundResource(R.drawable.border_book_service_selected);
         } else {
             holder.itemView.setBackgroundResource(R.drawable.border_book_service);
         }
 
-        // Set an OnClickListener for the item view
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Update the selected position
-                selectedPosition = position;
+                // Update the selected position and RecyclerView
+                ((BookInformation) context).selectedPosition = position;
+                ((BookInformation) context).selectedRecyclerView = recyclerView;
 
-                // Notify the adapter to redraw the items
-                notifyDataSetChanged();
+                // Notify the adapters to redraw the items
+                ((BookInformation) context).adapter1.notifyDataSetChanged();
+                ((BookInformation) context).adapter2.notifyDataSetChanged();
 
-                // Display a Toast with the time slot's information
-                Toast.makeText(context, "Clicked on time slot: " + timeSlot.getTime(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Khung giờ bạn chọn: " + timeSlot.getTime(), Toast.LENGTH_SHORT).show();
             }
         });
     }

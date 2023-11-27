@@ -1,10 +1,12 @@
 package com.miwth.allure_spa.ui.views.treatment.BookService;
 
+import android.graphics.Color;
+import android.os.Bundle;
+import android.widget.CalendarView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
 
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.model.TimeSlot;
@@ -15,34 +17,61 @@ import java.util.List;
 
 public class BookInformation extends AppCompatActivity {
 
+    public TimeSlotAdapter adapter1;
+    public TimeSlotAdapter adapter2;
+
+    public int selectedPosition = -1; // The position of the currently selected TimeSlot
+    public RecyclerView selectedRecyclerView = null; // The currently selected RecyclerView
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_information);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.white, null));
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false) {
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        RecyclerView recyclerView2 = findViewById(R.id.recyclerView2);
+
+        CalendarView calendarView = findViewById(R.id.cvTreatmentDetail);
+
+        LinearLayoutManager layoutManager1 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false) {
             @Override
             public boolean canScrollHorizontally() {
                 return false;
             }
         };
-        recyclerView.setLayoutManager(layoutManager);
 
-        // Step 1: Create a list of TimeSlots that you want to display
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false) {
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+        };
+
+        recyclerView.setLayoutManager(layoutManager1);
+        recyclerView2.setLayoutManager(layoutManager2);
+
         List<TimeSlot> timeSlots = new ArrayList<>();
-        timeSlots.add(new TimeSlot("8:00", "Còn 3 chỗ"));
-        timeSlots.add(new TimeSlot("9:00", "Còn 2 chỗ"));
-        timeSlots.add(new TimeSlot("10:00", "Còn 1 chỗ"));
-        timeSlots.add(new TimeSlot("11:00", "Còn 3 chỗ"));
-        timeSlots.add(new TimeSlot("12:00", "Còn 2 chỗ"));
-        // Add more time slots as needed
+        timeSlots.add(new TimeSlot("8:00", "Còn chỗ"));
+        timeSlots.add(new TimeSlot("9:00", "Còn chỗ"));
+        timeSlots.add(new TimeSlot("10:00", "Còn chỗ"));
+        timeSlots.add(new TimeSlot("11:00", "Còn chỗ"));
+        timeSlots.add(new TimeSlot("12:00", "Còn chỗ"));
 
-        // Step 2: Initialize the TimeSlotAdapter with the list of TimeSlots
-        TimeSlotAdapter adapter = new TimeSlotAdapter(this, timeSlots);
+        adapter1 = new TimeSlotAdapter(this, timeSlots, recyclerView);
+        recyclerView.setAdapter(adapter1);
 
-        // Step 3: Set the adapter for the RecyclerView
-        recyclerView.setAdapter(adapter);
+        List<TimeSlot> timeSlots2 = new ArrayList<>();
+        timeSlots2.add(new TimeSlot("13:00", "Còn chỗ"));
+        timeSlots2.add(new TimeSlot("14:00", "Còn chỗ"));
+        timeSlots2.add(new TimeSlot("15:00", "Còn chỗ"));
+        timeSlots2.add(new TimeSlot("16:00", "Còn chỗ"));
+        timeSlots2.add(new TimeSlot("17:00", "Còn chỗ"));
+
+        adapter2 = new TimeSlotAdapter(this, timeSlots2, recyclerView2);
+        recyclerView2.setAdapter(adapter2);
+
+        // Other code
     }
 }

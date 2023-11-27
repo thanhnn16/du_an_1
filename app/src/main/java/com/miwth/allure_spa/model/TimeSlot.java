@@ -3,36 +3,50 @@ package com.miwth.allure_spa.model;
 public class TimeSlot {
     private String time;
     private String status;
+    private boolean isSelected;
 
+    // Constructors
     public TimeSlot(String time, String status) {
         this.time = time;
         this.status = status;
     }
 
+    // Getters and Setters
     public String getTime() {
         return time;
-    }
-
-    public String getStatus() {
-        return status;
     }
 
     public void setTime(String time) {
         this.time = time;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
 
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    // toString method
     @Override
     public String toString() {
         return "TimeSlot{" +
                 "time='" + time + '\'' +
                 ", status='" + status + '\'' +
+                ", isSelected=" + isSelected +
                 '}';
     }
 
+    // equals and hashCode methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,6 +66,7 @@ public class TimeSlot {
         return result;
     }
 
+    // Builder pattern
     public static class Builder {
         private String time;
         private String status;
@@ -71,6 +86,7 @@ public class TimeSlot {
         }
     }
 
+    // Static factory methods
     public static Builder builder() {
         return new Builder();
     }

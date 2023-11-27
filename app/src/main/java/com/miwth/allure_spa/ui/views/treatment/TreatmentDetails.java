@@ -41,6 +41,8 @@ public class TreatmentDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_treatment_details);
 
+        getWindow().setStatusBarColor(getResources().getColor(R.color.white, null));
+
         tvTreatmentName = findViewById(R.id.tvTreatmentDetailName);
         tvTreatmentPrice = findViewById(R.id.tvTreatmentDetailPrice);
         llMoTaLT = findViewById(R.id.llMoTaLT);
