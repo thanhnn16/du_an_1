@@ -6,9 +6,9 @@ import java.util.Date;
 
 public class Cosmetics {
     private int id;
-    @Json(name = "cosmetics_name")
+    @Json(name = "cosmetic_name")
     private String cosmeticsName;
-    @Json(name = "cosmetics_category_id")
+    @Json(name = "cosmetic_category_id")
     private int cosmeticsCategoryId;
     private String description;
     private int price;

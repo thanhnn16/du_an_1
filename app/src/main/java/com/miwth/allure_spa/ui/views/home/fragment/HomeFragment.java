@@ -154,6 +154,7 @@ public class HomeFragment extends Fragment {
             TreatmentsRepository treatmentsRepository = new TreatmentsRepository();
             Response<TreatmentsResponse> response = treatmentsRepository.getTreatments().execute();
             if (response.isSuccessful()) {
+                Log.d(TAG, "getData: " + response.body().getData().get(0).getTreatmentName());
                 ArrayList<Treatments> allTreatments = (ArrayList<Treatments>) response.body().getData();
                 return new ArrayList<>(allTreatments.subList(0, Math.min(allTreatments.size(), 4)));
             } else {

@@ -1,4 +1,4 @@
-package com.miwth.allure_spa.api.comments;
+package com.miwth.allure_spa.api.comment;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

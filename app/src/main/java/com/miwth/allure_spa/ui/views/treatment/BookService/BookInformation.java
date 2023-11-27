@@ -38,14 +38,14 @@ public class BookInformation extends AppCompatActivity {
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false) {
             @Override
             public boolean canScrollHorizontally() {
-                return false;
+                return true;
             }
         };
 
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false) {
             @Override
             public boolean canScrollHorizontally() {
-                return false;
+                return true;
             }
         };
 
