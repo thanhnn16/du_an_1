@@ -48,13 +48,13 @@
             android:id="@+id/rlTreatmentDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
             android:background="@color/white">
 
             <TextView
                 android:id="@+id/tvSelectDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/quicksand_bold"
@@ -68,22 +68,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvSelectDay"
-                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="0dp"
                 android:background="#FFF9ED"
                 android:backgroundTintMode="multiply"
                 android:filterTouchesWhenObscured="false"
-                android:fontFamily="@font/quicksand_bold">
-
-
-            </CalendarView>
+                android:fontFamily="@font/quicksand_bold" />
 
             <TextView
                 android:id="@+id/tvSelectTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cvTreatmentDetail"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/quicksand_bold"
                 android:text="Chọn giờ"
@@ -91,14 +86,11 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <!-- Other views -->
-
             <TextView
                 android:id="@+id/tvMorning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvSelectTime"
-                android:layout_marginStart="30dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/quicksand_bold"
                 android:text="Sáng"
@@ -111,8 +103,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvMorning"
-                android:padding="10dp"
-                android:visibility="visible"
+                android:orientation="horizontal"
+                android:overScrollMode="always"
                 tools:listitem="@layout/item_time_slot" />
 
             <TextView
@@ -120,7 +112,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/recyclerView"
-                android:layout_marginStart="30dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/quicksand_bold"
                 android:text="Chiều"
@@ -134,8 +125,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvAfternoon"
                 android:layout_gravity="center"
-                android:padding="10dp"
-                android:visibility="visible"
+                android:orientation="horizontal"
+                android:overScrollMode="always"
                 tools:listitem="@layout/item_time_slot" />
 
 
@@ -144,7 +135,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/recyclerView2"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/quicksand_bold"
                 android:text="Dịch vụ"
@@ -157,7 +147,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_below="@id/tvServiceDetail"
-                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/border_book_service"
                 android:orientation="horizontal">
@@ -168,6 +157,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
@@ -182,8 +172,6 @@
                         android:id="@+id/tvTreatmentDetailPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/quicksand_bold"
                         android:text="100.000đ"
                         android:textColor="@color/primaryColor"
@@ -214,11 +202,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:textAlignment="center"
                         android:layout_toStartOf="@+id/ivTreatmentDetailPlus"
                         android:layout_toEndOf="@id/ivTreatmentDetailMinus"
                         android:fontFamily="@font/quicksand_bold"
                         android:text="3"
+                        android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
@@ -240,7 +228,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/llTreatmentDetailService"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/quicksand_bold"
                 android:text="Mã Khuyến Mãi"
@@ -253,7 +240,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@id/tvPromotionCode"
-                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/border_book_service"
                 android:orientation="horizontal">
@@ -305,13 +291,11 @@
                 </RelativeLayout>
             </RelativeLayout>
 
-            <!--     Ghi chú    -->
             <TextView
                 android:id="@+id/tvNote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rlTreatmentDetailPromotionCode"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/quicksand_bold"
                 android:text="Ghi chú"
@@ -324,24 +308,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvNote"
-                android:layout_marginBottom="0dp"
-                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/border_book_service"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="8dp">
 
 
                 <EditText
                     android:id="@+id/etTreatmentDetailNote"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:hint="Ví dụ: Da dầu, da khô, da nhạy cảm,..."
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@color/transparent"
+                    android:hint="Ví dụ: Da dầu, da khô,..."
                     android:inputType="text"
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="18sp" />
             </RelativeLayout>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
@@ -349,7 +332,7 @@
     <LinearLayout
         android:id="@+id/llTreatmentDetailAddToCart"
         android:layout_width="match_parent"
-        android:layout_height="137.5sp"
+        android:layout_height="100sp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/bottom_detail_bg"
         android:gravity="center"
@@ -377,7 +360,7 @@
                 android:fontFamily="@font/quicksand_bold"
                 android:text="Tổng Thanh Toán"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -396,7 +379,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:backgroundTint="@color/primaryColor"
             app:cardCornerRadius="10dp"
@@ -405,14 +388,14 @@
             <TextView
                 android:id="@+id/tvBookNow"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/quicksand_bold"
                 android:gravity="center"
-                android:paddingVertical="14dp"
                 android:text="TIẾP TỤC"
+                android:paddingVertical="4dp"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
         </androidx.cardview.widget.CardView>

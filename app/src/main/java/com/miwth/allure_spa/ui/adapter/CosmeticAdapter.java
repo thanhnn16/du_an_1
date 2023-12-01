@@ -18,6 +18,7 @@ import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.model.Cosmetics;
 import com.miwth.allure_spa.ui.views.cosmetic.CosmeticDetailActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CosmeticAdapter extends RecyclerView.Adapter<CosmeticAdapter.CosmeticViewHolder> {
@@ -25,7 +26,7 @@ public class CosmeticAdapter extends RecyclerView.Adapter<CosmeticAdapter.Cosmet
     private final List<Cosmetics> cosmeticsList;
     Context context;
 
-    public CosmeticAdapter(Context context, List<Cosmetics> cosmeticsList) {
+    public CosmeticAdapter(Context context, ArrayList<Cosmetics> cosmeticsList) {
         this.context = context;
         this.cosmeticsList = cosmeticsList;
     }

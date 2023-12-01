@@ -1,4 +1,4 @@
-package com.miwth.allure_spa.api.comments;
+package com.miwth.allure_spa.api.comment;
 
 import static com.miwth.allure_spa.api.ApiConstants.getRetrofit;
 
