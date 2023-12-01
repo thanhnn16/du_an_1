@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.views.RateAndReviews.Rating_Reviews">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:contentDescription="@string/go_back"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/chevron_left" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:text="@string/ratingAndReViews"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar">
+
+
+        <LinearLayout
+            android:id="@+id/ll1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4.3"
+                        android:textColor="#222222"
+                        android:textSize="44sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2.3 rating"
+                        android:textColor="#9B9B9B"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="0dp">
+
+                        <RatingBar
+                            android:id="@+id/ratingBar5"
+                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:isIndicator="true"
+                            android:layoutDirection="rtl"
+                            android:numStars="5"
+                            android:progressTint="@color/primaryColor"
+                            android:rating="5"
+                            android:stepSize="1.0" />
+
+                        <com.google.android.material.slider.Slider
+                            android:id="@+id/slide5"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:valueFrom="0"
+                            android:valueTo="100"
+                            app:thumbColor="@color/primaryColor"
+                            app:thumbElevation="0dp"
+                            app:thumbRadius="0dp"
+                            app:trackColorActive="@color/red"
+                            app:trackColorInactive="@color/white"
+                            app:trackHeight="6dp" />
+
+
+                        <TextView
+                            android:id="@+id/tv5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:text="10"
+                            android:textColor="#4F4F4F"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="0dp">
+
+                        <RatingBar
+                            android:id="@+id/ratingBar4"
+                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:isIndicator="true"
+                            android:layoutDirection="rtl"
+                            android:numStars="4"
+                            android:progressTint="@color/primaryColor"
+                            android:rating="4"
+                            android:stepSize="1.0" />
+
+                        <com.google.android.material.slider.Slider
+                            android:id="@+id/slide4"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:valueFrom="0"
+                            android:valueTo="100"
+                            app:thumbColor="@color/primaryColor"
+                            app:thumbElevation="0dp"
+                            app:thumbRadius="0dp"
+                            app:trackColorActive="@color/red"
+                            app:trackColorInactive="@color/white"
+                            app:trackHeight="6dp" />
+
+                        <TextView
+                            android:id="@+id/tv4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:text="5"
+                            android:textColor="#4F4F4F"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="32dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="0dp">
+
+                        <RatingBar
+                            android:id="@+id/ratingBar3"
+                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:isIndicator="true"
+                            android:layoutDirection="rtl"
+                            android:numStars="3"
+                            android:progressTint="@color/primaryColor"
+                            android:rating="3"
+                            android:stepSize="1.0" />
+
+                        <com.google.android.material.slider.Slider
+                            android:id="@+id/slide3"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:valueFrom="0"
+                            android:valueTo="100"
+                            app:thumbColor="@color/primaryColor"
+                            app:thumbElevation="0dp"
+                            app:thumbRadius="0dp"
+                            app:trackColorActive="@color/red"
+                            app:trackColorInactive="@color/white"
+                            app:trackHeight="6dp" />
+
+                        <TextView
+                            android:id="@+id/tv3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:text="4"
+                            android:textColor="#4F4F4F"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="48dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="0dp">
+
+                        <RatingBar
+                            android:id="@+id/ratingBar2"
+                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:isIndicator="true"
+                            android:layoutDirection="rtl"
+                            android:numStars="2"
+                            android:progressTint="@color/primaryColor"
+                            android:rating="2"
+                            android:stepSize="1.0" />
+
+                        <com.google.android.material.slider.Slider
+                            android:id="@+id/slide2"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:valueFrom="0"
+                            android:valueTo="100"
+                            app:thumbColor="@color/primaryColor"
+                            app:thumbElevation="0dp"
+                            app:thumbRadius="0dp"
+                            app:trackColorActive="@color/red"
+                            app:trackColorInactive="@color/white"
+                            app:trackHeight="6dp" />
+
+                        <TextView
+                            android:id="@+id/tv2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:text="2"
+                            android:textColor="#4F4F4F"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="64dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="0dp">
+
+                        <RatingBar
+                            android:id="@+id/ratingBar1"
+                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:isIndicator="true"
+                            android:layoutDirection="rtl"
+                            android:numStars="1"
+                            android:progressTint="@color/primaryColor"
+                            android:rating="1"
+                            android:stepSize="1.0" />
+
+                        <com.google.android.material.slider.Slider
+                            android:id="@+id/slide1"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:valueFrom="0"
+                            android:valueTo="100"
+                            app:thumbColor="@color/primaryColor"
+                            app:thumbElevation="0dp"
+                            app:thumbRadius="0dp"
+                            app:trackColorActive="@color/red"
+                            app:trackColorInactive="@color/white"
+                            app:trackHeight="6dp" />
+
+                        <TextView
+                            android:id="@+id/tv1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:text="1"
+                            android:textColor="#4F4F4F"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll1"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tvNumberRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:textColor="#222222"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="đánh giá"
+                    android:textColor="#222222"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="120dp"
+                    android:button="@drawable/checkbox"
+                    android:padding="10dp"
+                    android:text="hình ảnh"
+                    android:textColor="#222222"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRatingAndReviews"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/ll2"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:padding="10dp" />
+
+        </LinearLayout>
+
+
+
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/primaryColor"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="36dp"
+        app:cardElevation="4dp">
+
+    <Button
+        android:id="@+id/btnShowDialog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="✎ Viết đánh giá"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/primaryColor"
+        />
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
