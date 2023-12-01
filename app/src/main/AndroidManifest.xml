@@ -19,6 +19,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.views.RateAndReviews.Rating_Reviews"
+            android:exported="false" />
+        <activity
             android:name=".ui.views.treatment.BookService.BookInformation"
             android:exported="false" />
         <activity

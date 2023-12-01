@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
 
 import com.miwth.allure_spa.api.auth.TokenManager;
+import com.miwth.allure_spa.ui.views.RateAndReviews.Rating_Reviews;
+import com.miwth.allure_spa.ui.views.cosmetic.CosmeticDetailActivity;
 import com.miwth.allure_spa.ui.views.home.HomeActivity;
 import com.miwth.allure_spa.ui.views.treatment.BookService.BookInformation;
 import com.miwth.allure_spa.ui.views.treatment.TreatmentDetails;
@@ -53,7 +55,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, OnboardingActivity.class));
                 finish();
             } else {
-                startActivity(new Intent(MainActivity.this, BookInformation.class));
+
+//                bàn tay của thần
+//                startActivity(new Intent(MainActivity.this, BookInformation.class));
+//                startActivity(new Intent(MainActivity.this, CosmeticDetailActivity.class));
+                startActivity(new Intent(MainActivity.this, Rating_Reviews.class));
+
 //                startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
                 finish();
             }

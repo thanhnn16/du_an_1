@@ -19,6 +19,7 @@ import com.miwth.allure_spa.api.treatment.TreatmentsRepository;
 import com.miwth.allure_spa.api.treatment.TreatmentsResponse;
 import com.miwth.allure_spa.model.Treatments;
 import com.miwth.allure_spa.ui.adapter.TimeSlotAdapter;
+import com.miwth.allure_spa.ui.views.RateAndReviews.Rating_Reviews;
 import com.miwth.allure_spa.ui.views.treatment.BookService.BookInformation;
 
 import java.util.ArrayList;
@@ -32,9 +33,10 @@ public class TreatmentDetails extends AppCompatActivity {
     private static final String TAG = "TREATMENT_DETAILS_ACTIVITY";
     TreatmentsRepository treatmentsRepository;
     TextView tvTreatmentName, tvTreatmentPrice;
-    LinearLayout llMoTaLT;
+    LinearLayout llMoTaLT, llComment;
 
     CardView cvBookNow;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,13 @@ public class TreatmentDetails extends AppCompatActivity {
         tvTreatmentPrice = findViewById(R.id.tvTreatmentDetailPrice);
         llMoTaLT = findViewById(R.id.llMoTaLT);
         cvBookNow = findViewById(R.id.cvBookNow);
+        llComment = findViewById(R.id.llComment);
+
+        llComment.setOnClickListener(v -> {
+            Intent intent = new Intent(TreatmentDetails.this, Rating_Reviews.class);
+            startActivity(intent);
+        });
+
 
         cvBookNow.setOnClickListener(v -> {
             Intent intent = new Intent(TreatmentDetails.this, BookInformation.class);
@@ -86,6 +95,8 @@ public class TreatmentDetails extends AppCompatActivity {
                     Toast.makeText(TreatmentDetails.this, "Lỗi", Toast.LENGTH_SHORT).show();
                 }
             }
+
+
 
             @Override
             public void onFailure(@NonNull Call<TreatmentsResponse> call, @NonNull Throwable t) {

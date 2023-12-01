@@ -1,59 +1,63 @@
 package com.miwth.allure_spa.model;
 
-import java.util.Date;
-
 public class Comment {
-    private int id;
-    private int userId;
-    private String image;
-    private Date createdAt;
-    private Date lastUpdate;
 
-    public Comment(int id, int userId, String image, Date createdAt, Date lastUpdate) {
-        this.id = id;
-        this.userId = userId;
-        this.image = image;
-        this.createdAt = createdAt;
-        this.lastUpdate = lastUpdate;
+
+    private String userName;
+    private float rating;
+    private String time;
+    private String content;
+    private boolean useful;
+
+    public Comment(String userName, float rating, String time, String content, boolean useful) {
+        this.userName = userName;
+        this.rating = rating;
+        this.time = time;
+        this.content = content;
+        this.useful = useful;
     }
 
-    public int getId() {
-        return id;
+    public Comment() {
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getUserName() {
+        return userName;
     }
 
-    public int getUserId() {
-        return userId;
+    public float getRating() {
+        return rating;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public String getTime() {
+        return time;
     }
 
-    public String getImage() {
-        return image;
+    public String getContent() {
+        return content;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public boolean isUseful() {
+        return useful;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
-    public Date getLastUpdate() {
-        return lastUpdate;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
-        this.lastUpdate = lastUpdate;
+    public void setContent(String content) {
+        this.content = content;
     }
+
+    public void setUseful(boolean useful) {
+        this.useful = useful;
+    }
+
 }

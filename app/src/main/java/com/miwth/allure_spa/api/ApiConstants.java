@@ -16,8 +16,9 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 
 public class ApiConstants {
     //    BASE URL
-    public static final String API_BASE_URL = "http://10.0.1.172:8000/api/";
+//    public static final String API_BASE_URL = "http://10.0.1.172:8000/api/";
 //    public static final String API_BASE_URL = "http://192.168.1.119:8000/api/";
+    public static final String API_BASE_URL = "http://167.172.86.47/api/";
 
     //    RESOURCE URL
     public static final String RESOURCE_URL = "http://192.168.1.10:8000/storage/";
