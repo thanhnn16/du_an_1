@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +41,6 @@ public class Rating_Reviews extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_reviews);
-
 
 
         slider5 = findViewById(R.id.slide5);
@@ -107,16 +107,19 @@ public class Rating_Reviews extends AppCompatActivity {
 
                 LinearLayout lnlAddPhoto = bottomSheetView.findViewById(R.id.lnlAddPhoto);
 
-
+// Limit the number of selected images to 2
                 lnlAddPhoto.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_PICK);
+                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                         intent.setType("image/*");
-                        startActivityForResult(intent, 1);
+                        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+
+                        Toast.makeText(Rating_Reviews.this, "Chọn tối đa 2 hình sản phẩm.", Toast.LENGTH_SHORT).show();
                     }
                 });
+
             }
         });
     }
@@ -133,44 +136,32 @@ public class Rating_Reviews extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
             if (data != null && data.getClipData() != null) {
-                int count = data.getClipData().getItemCount();
+                int count = Math.min(data.getClipData().getItemCount(), 2); // Limit selected images to 2
                 selectedImageUri = new ArrayList<>();
                 LinearLayout lnlSelectedPhoto = bottomSheetView.findViewById(R.id.lnlSelectedPhoto);
-                lnlSelectedPhoto.removeAllViews(); // Clear the existing views
+                lnlSelectedPhoto.removeAllViews();
 
                 for (int i = 0; i < count; i++) {
                     Uri imageUri = data.getClipData().getItemAt(i).getUri();
                     selectedImageUri.add(imageUri);
-
                     ImageView imageView = new ImageView(this);
-                    imageView.setImageURI(selectedImageUri.get(i));
-                    imageView.setPadding(10, 10, 10, 10);
-                    imageView.setAdjustViewBounds(true);
-                    imageView.setMaxWidth(200);
-                    imageView.setMaxHeight(250);
+                    imageView.setImageURI(imageUri);
+                    imageView.setPadding(0, 0, 10, 0);
+                    imageView.setLayoutParams(new LinearLayout.LayoutParams(250, 200));
                     lnlSelectedPhoto.addView(imageView);
                 }
 
-                // Initialize btnDeletePhoto if not already initialized
-                if (btnDeletePhoto == null) {
-                    btnDeletePhoto = bottomSheetView.findViewById(R.id.btnDeletePhoto);
-                }
-
-                // Set visibility to visible
                 btnDeletePhoto.setVisibility(View.VISIBLE);
+
+                btnDeletePhoto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        lnlSelectedPhoto.removeAllViews();
+                        selectedImageUri.clear();
+                        btnDeletePhoto.setVisibility(View.GONE);
+                    }
+                });
             }
         }
     }
-
-
-
-
-
-    public void deletePhoto(View view) {
-        LinearLayout lnlSelectedPhoto = bottomSheetView.findViewById(R.id.lnlSelectedPhoto);
-        lnlSelectedPhoto.removeAllViews();
-        // No need to check for null here, btnDeletePhoto is already initialized in onCreate
-        btnDeletePhoto.setVisibility(View.GONE);
-    }
 }
-

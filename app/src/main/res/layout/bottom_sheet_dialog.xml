@@ -86,9 +86,7 @@
                 android:background="@drawable/ic_close"
                 android:onClick="deletePhoto"
                 android:layout_alignEnd="@id/lnlSelectedPhoto"
-                android:layout_alignTop="@id/lnlSelectedPhoto"
-                android:layout_marginEnd="3dp"
-                android:layout_marginTop="3dp"
+                android:layout_marginEnd="12dp"
                 android:visibility="gone"
                 android:src="@drawable/ic_close" />
 
