@@ -6,6 +6,7 @@
     android:layout_margin="8dp"
     android:id="@+id/cardView"
     android:elevation="4dp"
+    android:background="@color/white"
     app:cardCornerRadius="12dp">
 
 
