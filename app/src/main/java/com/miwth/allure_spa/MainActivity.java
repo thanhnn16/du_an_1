@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
 //                startActivity(new Intent(MainActivity.this, CosmeticDetailActivity.class));
 //                startActivity(new Intent(MainActivity.this, Rating_Reviews.class));
 //                startActivity(new Intent(MainActivity.this, TreatmentDetails.class));
-                startActivity(new Intent(MainActivity.this, NotificationFragment.class));
+//                startActivity(new Intent(MainActivity.this, NotificationFragment.class));
 
-//                startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
+                startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
                 finish();
             }
         }, 1000);

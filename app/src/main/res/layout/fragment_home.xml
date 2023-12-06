@@ -459,53 +459,6 @@
                     android:layout_marginTop="8dp"
                     android:background="@color/white" />
 
-                <!--                section tin tức-->
-                <TextView
-                    android:id="@+id/tvNews"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/rvBestSeller"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/quicksand_bold"
-                    android:text="@string/news"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
-
-                <LinearLayout
-                    android:id="@+id/news_see_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/tvNews"
-                    android:layout_alignBottom="@id/tvNews"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/see_more"
-                        android:textAlignment="center"
-                        android:textColor="@color/primaryColor"
-                        android:textSize="13sp" />
-
-                    <View
-                        android:layout_width="64dp"
-                        android:layout_height="1.5dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="2dp"
-                        android:background="@color/primaryColor" />
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvNews"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tvNews"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/white" />
 
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>

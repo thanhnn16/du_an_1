@@ -11,4 +11,7 @@ public interface CosmeticsApiService {
 
     @GET("cosmetics")
     Call<CosmeticsResponse> getCosmetics();
+
+    @GET("cosmetics-best")
+    Call<CosmeticsResponse> getBestSells();
 }

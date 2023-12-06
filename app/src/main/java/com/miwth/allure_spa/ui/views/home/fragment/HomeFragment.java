@@ -22,6 +22,7 @@ import com.miwth.allure_spa.api.treatment.TreatmentsRepository;
 import com.miwth.allure_spa.api.treatment.TreatmentsResponse;
 import com.miwth.allure_spa.model.Cosmetics;
 import com.miwth.allure_spa.model.Treatments;
+import com.miwth.allure_spa.ui.adapter.BestSellCosmeticAdapter;
 import com.miwth.allure_spa.ui.adapter.CosmeticAdapter;
 import com.miwth.allure_spa.ui.adapter.TreatmentAdapter;
 import com.miwth.allure_spa.ui.views.Cart.Cart;
@@ -40,39 +41,38 @@ import retrofit2.Response;
 public class HomeFragment extends Fragment {
     private static final String TAG = "HOME_FRAGMENT";
     LinearLayout llIntroduction, llVoucher, llService, llSanPhamDocQuyen, llSanPhamMayMoc, llCourse, llNews, llContact;
-    RecyclerView rvCosmetic, rvTreatment, rvNews, rvBestSeller;
-    LinearLayout tvSeeMoreCosmetic, tvSeeMoreTreatment, tvSeeMoreNews, tvSeeMoreBestSeller;
-
+    RecyclerView rvCosmetic, rvTreatment, rvBestSeller;
+    LinearLayout tvSeeMoreCosmetic, tvSeeMoreTreatment, tvSeeMoreBestSeller;
     ImageButton btnCart;
     ArrayList<Cosmetics> cosmeticsArrayList;
+    ArrayList<Cosmetics> bestCosmeticsArrayList;
     ArrayList<Treatments> treatmentArrayList;
     Context context;
     CosmeticAdapter cosmeticAdapter;
     TreatmentAdapter treatmentAdapter;
+    BestSellCosmeticAdapter bestSellCosmeticAdapter;
     String token;
     Intent intent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View homeFragmentView = inflater.inflate(R.layout.fragment_home, container, false);
         context = getActivity();
+        assert context != null;
         token = new TokenManager(context).getToken();
 
         rvCosmetic = homeFragmentView.findViewById(R.id.rvCosmetic);
         rvTreatment = homeFragmentView.findViewById(R.id.rvService);
-        rvNews = homeFragmentView.findViewById(R.id.rvNews);
         rvBestSeller = homeFragmentView.findViewById(R.id.rvBestSeller);
 
         tvSeeMoreBestSeller = homeFragmentView.findViewById(R.id.best_seller_see_more);
         tvSeeMoreCosmetic = homeFragmentView.findViewById(R.id.cosmetic_see_more);
         tvSeeMoreTreatment = homeFragmentView.findViewById(R.id.service_see_more);
-        tvSeeMoreNews = homeFragmentView.findViewById(R.id.news_see_more);
 
 
         llIntroduction = homeFragmentView.findViewById(R.id.llIntroduction);
@@ -148,7 +148,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void getData() {
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
 
         Callable<ArrayList<Cosmetics>> getCosmeticsTask = () -> {
             CosmeticsRepository cosmeticRepository = new CosmeticsRepository();
@@ -160,6 +160,18 @@ public class HomeFragment extends Fragment {
                 return new ArrayList<>();
             }
         };
+
+        Callable<ArrayList<Cosmetics>> getBestSellTask = () -> {
+            CosmeticsRepository cosmeticRepository = new CosmeticsRepository();
+            Response<CosmeticsResponse> response = cosmeticRepository.getCosmetics().execute();
+            if (response.isSuccessful()) {
+                ArrayList<Cosmetics> allCosmetics = (ArrayList<Cosmetics>) response.body().getData();
+                return new ArrayList<>(allCosmetics.subList(0, Math.min(allCosmetics.size(), 4)));
+            } else {
+                return new ArrayList<>();
+            }
+        };
+
 
         Callable<ArrayList<Treatments>> getTreatmentsTask = () -> {
             TreatmentsRepository treatmentsRepository = new TreatmentsRepository();
@@ -174,28 +186,31 @@ public class HomeFragment extends Fragment {
         };
 
         Future<ArrayList<Cosmetics>> cosmeticsFuture = executorService.submit(getCosmeticsTask);
+        Future<ArrayList<Cosmetics>> bestSellFuture = executorService.submit(getBestSellTask);
         Future<ArrayList<Treatments>> treatmentsFuture = executorService.submit(getTreatmentsTask);
 
         try {
             cosmeticsArrayList = cosmeticsFuture.get();
             treatmentArrayList = treatmentsFuture.get();
+            bestCosmeticsArrayList = bestSellFuture.get();
+
             Log.d(TAG, "getData: " + treatmentArrayList.get(0).getTreatmentName());
             setUpRecyclerView();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d(TAG, "getData: " + e.getMessage());
         }
     }
 
     private void setUpRecyclerView() {
         rvCosmetic.setHasFixedSize(true);
         rvTreatment.setHasFixedSize(true);
-        rvNews.setHasFixedSize(true);
         rvBestSeller.setHasFixedSize(true);
 
         Log.d(TAG, "setUpRecyclerView: " + cosmeticsArrayList.size());
         Log.d(TAG, "setUpRecyclerView: " + treatmentArrayList.size());
         cosmeticAdapter = new CosmeticAdapter(context, cosmeticsArrayList);
         treatmentAdapter = new TreatmentAdapter(context, treatmentArrayList);
+        bestSellCosmeticAdapter = new BestSellCosmeticAdapter(context, bestCosmeticsArrayList);
 
 
         rvCosmetic.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
@@ -214,10 +229,6 @@ public class HomeFragment extends Fragment {
         });
         tvSeeMoreTreatment.setOnClickListener(v -> {
             intent.putExtra("title", getResources().getString(R.string.treatment_cap));
-            startActivity(intent);
-        });
-        tvSeeMoreNews.setOnClickListener(v -> {
-            intent.putExtra("title", getResources().getString(R.string.news_cap));
             startActivity(intent);
         });
         tvSeeMoreBestSeller.setOnClickListener(v -> {

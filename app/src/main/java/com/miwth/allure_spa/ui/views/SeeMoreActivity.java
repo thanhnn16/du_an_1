@@ -50,7 +50,7 @@ public class SeeMoreActivity extends AppCompatActivity {
         tvTitle.setText(title);
         btnBack.setOnClickListener(v -> finish());
 
-        if (Objects.equals(title, getResources().getString(R.string.cosmetic_cap))) {
+        if (Objects.equals(title, getResources().getString(R.string.cosmetic_cap)) || Objects.equals(title, getResources().getString(R.string.best_seller_cap))) {
             CosmeticsRepository cosmeticsRepository = new CosmeticsRepository();
             cosmeticsRepository.getCosmetics().enqueue(new Callback<CosmeticsResponse>() {
                 @Override
@@ -92,8 +92,6 @@ public class SeeMoreActivity extends AppCompatActivity {
                     Log.d(TAG, "onFailure: " + t.getMessage());
                 }
             });
-        } else if (Objects.equals(title, getResources().getString(R.string.news_cap))) {
-
         }
     }
 }

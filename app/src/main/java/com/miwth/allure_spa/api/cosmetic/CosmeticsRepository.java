@@ -18,4 +18,7 @@ public class CosmeticsRepository {
     public Call<CosmeticsResponse> getCosmetics() {
         return apiService.getCosmetics();
     }
+    public Call<CosmeticsResponse> getBestSells() {
+        return apiService.getBestSells();
+    }
 }
