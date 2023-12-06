@@ -54,7 +54,9 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "onResponse: " + authResponse.getToken());
                             tokenManager = new TokenManager(LoginActivity.this);
                             tokenManager.saveToken(authResponse.getToken());
+                            tokenManager.saveUserId(authResponse.getUserId());
                             Log.d(TAG, "onResponse: " + tokenManager.getToken());
+                            Log.d(TAG, "onResponse: " + tokenManager.getUserId());
                             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                             finishAffinity();
                         }

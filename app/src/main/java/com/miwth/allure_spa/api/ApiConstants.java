@@ -1,11 +1,14 @@
 package com.miwth.allure_spa.api;
 
+import com.miwth.allure_spa.api.auth.TokenManager;
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.ToJson;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
@@ -22,7 +25,6 @@ public class ApiConstants {
 
     public static final String WEB_BASE_URL = "http://167.172.86.47/";
 //    public static final String WEB_BASE_URL = "http://10.0.1.172:8000/";
-
 
 
 //    public static final String API_BASE_URL = "http://"
@@ -74,11 +76,25 @@ public class ApiConstants {
     public static final String NOTIFICATION_TYPES_URL = "notification_types";
     public static final String NOTIFICATION_TYPE_URL = "notification_types/{id}";
 
+
     //    AUTH HEADERS
     public static OkHttpClient getOkHttpClient() {
         return new OkHttpClient.Builder().addInterceptor(chain -> {
             Request originalRequest = chain.request();
-            Request.Builder builder = originalRequest.newBuilder().header("Accept", "application/json");
+            Request.Builder builder = originalRequest.newBuilder().
+                    header("Accept", "application/json");
+            Request newRequest = builder.build();
+            return chain.proceed(newRequest);
+        }).build();
+    }
+
+
+    public static OkHttpClient getOkHttpClientWithAuth(String token) {
+        return new OkHttpClient.Builder().addInterceptor(chain -> {
+            Request originalRequest = chain.request();
+            Request.Builder builder = originalRequest.newBuilder().
+                    header("Accept", "application/json").
+                    header("Authorization", "Bearer " + token);
             Request newRequest = builder.build();
             return chain.proceed(newRequest);
         }).build();
@@ -88,6 +104,7 @@ public class ApiConstants {
     public static Moshi getMoshi() {
         return new Moshi.Builder()
                 .add(new DateAdapterZ())
+                .add(new LocalDateTimeAdapter())
                 .build();
     }
 
@@ -95,6 +112,14 @@ public class ApiConstants {
         return new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
                 .client(getOkHttpClient())
+                .addConverterFactory(MoshiConverterFactory.create(getMoshi()))
+                .build();
+    }
+
+    public static Retrofit getRetrofitWithAuth(String token) {
+        return new Retrofit.Builder()
+                .baseUrl(API_BASE_URL)
+                .client(getOkHttpClientWithAuth(token))
                 .addConverterFactory(MoshiConverterFactory.create(getMoshi()))
                 .build();
     }
@@ -113,6 +138,18 @@ public class ApiConstants {
             } catch (ParseException e) {
                 return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).parse(date);
             }
+        }
+    }
+
+    public static class LocalDateTimeAdapter {
+        @ToJson
+        String toJson(LocalDateTime localDateTime) {
+            return DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(localDateTime);
+        }
+
+        @FromJson
+        LocalDateTime fromJson(String localDateTime) {
+            return LocalDateTime.parse(localDateTime, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         }
     }
 }

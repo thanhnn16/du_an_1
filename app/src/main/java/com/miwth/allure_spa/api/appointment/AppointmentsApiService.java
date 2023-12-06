@@ -16,7 +16,7 @@ public interface AppointmentsApiService {
     @GET("appointments/{id}")
     Call<AppointmentsResponse> getAppointment(@Path("id") int id);
 
-    @POST("appointments")
-    Call<AppointmentsResponse> createAppointment(@Body Appointment appointment);
+    @POST("appointment-management")
+    Call<Void> createAppointment(@Body Appointment appointment);
 
 }

@@ -1,91 +1,84 @@
 package com.miwth.allure_spa.model;
 
+import com.squareup.moshi.Json;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Appointment {
     private int id;
+    @Json(name = "user_id")
     private int userId;
+    @Json(name = "treatment_id")
     private int treatmentId;
-    private Date appointmentDate;
+    @Json(name = "start_date")
+    private LocalDateTime startDate;
+    @Json(name = "end_date")
+    private LocalDateTime endDate;
+    @Json(name = "is_consultation")
+    private boolean isConsultation;
+    @Json(name = "is_all_day")
+    private boolean isAllDay;
     private String status;
     private String note;
-    private Date createdAt;
-    private Date lastUpdate;
+    @Json(name = "created_at")
+    private LocalDateTime createdAt;
+    @Json(name = "updated_at")
+    private LocalDateTime updatedAt;
 
-    public Appointment(int id, int userId, int treatmentId, Date appointmentDate,
-                       String status, String note, Date createdAt, Date lastUpdate) {
-        this.id = id;
+    public Appointment(int userId, int treatmentId, LocalDateTime startDate, LocalDateTime endDate, boolean isConsultation, boolean isAllDay, String status, String note) {
         this.userId = userId;
         this.treatmentId = treatmentId;
-        this.appointmentDate = appointmentDate;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.isConsultation = isConsultation;
+        this.isAllDay = isAllDay;
         this.status = status;
         this.note = note;
-        this.createdAt = createdAt;
-        this.lastUpdate = lastUpdate;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getUserId() {
         return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public int getTreatmentId() {
         return treatmentId;
     }
 
-    public void setTreatmentId(int treatmentId) {
-        this.treatmentId = treatmentId;
+    public LocalDateTime getStartDate() {
+        return startDate;
     }
 
-    public Date getAppointmentDate() {
-        return appointmentDate;
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
 
-    public void setAppointmentDate(Date appointmentDate) {
-        this.appointmentDate = appointmentDate;
+    public boolean isConsultation() {
+        return isConsultation;
+    }
+
+    public boolean isAllDay() {
+        return isAllDay;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getNote() {
         return note;
     }
 
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public void setLastUpdate(Date lastUpdate) {
-        this.lastUpdate = lastUpdate;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 }
 

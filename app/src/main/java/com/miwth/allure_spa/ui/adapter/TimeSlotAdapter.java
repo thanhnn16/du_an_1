@@ -1,4 +1,3 @@
-// File: app/src/main/java/com/miwth/allure_spa/ui/adapter/TimeSlotAdapter.java
 package com.miwth.allure_spa.ui.adapter;
 
 import android.content.Context;
@@ -19,9 +18,9 @@ import java.util.List;
 
 public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSlotViewHolder> {
 
-    private List<TimeSlot> timeSlots;
-    private Context context;
-    private RecyclerView recyclerView;
+    private final List<TimeSlot> timeSlots;
+    private final Context context;
+    private final RecyclerView recyclerView;
 
     public TimeSlotAdapter(Context context, List<TimeSlot> timeSlots, RecyclerView recyclerView) {
         this.context = context;
@@ -38,6 +37,7 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
 
     @Override
     public void onBindViewHolder(@NonNull TimeSlotViewHolder holder, int position) {
+        position = holder.getAdapterPosition();
         TimeSlot timeSlot = timeSlots.get(position);
 
         holder.tvTime.setText(timeSlot.getTime());
@@ -49,19 +49,15 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
             holder.itemView.setBackgroundResource(R.drawable.border_book_service);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Update the selected position and RecyclerView
-                ((BookInformation) context).selectedPosition = position;
-                ((BookInformation) context).selectedRecyclerView = recyclerView;
+        int finalPosition = position;
+        holder.itemView.setOnClickListener(v -> {
+            ((BookInformation) context).selectedPosition = finalPosition;
+            ((BookInformation) context).selectedRecyclerView = recyclerView;
 
-                // Notify the adapters to redraw the items
-                ((BookInformation) context).adapter1.notifyDataSetChanged();
-                ((BookInformation) context).adapter2.notifyDataSetChanged();
+            ((BookInformation) context).adapter1.notifyDataSetChanged();
+            ((BookInformation) context).adapter2.notifyDataSetChanged();
 
-                Toast.makeText(context, "Khung giờ bạn chọn: " + timeSlot.getTime(), Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(context, "Khung giờ bạn chọn: " + timeSlot.getTime(), Toast.LENGTH_SHORT).show();
         });
     }
 

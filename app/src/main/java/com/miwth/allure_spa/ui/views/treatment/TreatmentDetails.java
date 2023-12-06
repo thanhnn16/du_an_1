@@ -77,8 +77,7 @@ public class TreatmentDetails extends AppCompatActivity {
             if (token.isEmpty()) {
                 Toast.makeText(TreatmentDetails.this, "Bạn cần đăng nhập để đặt lịch", Toast.LENGTH_SHORT).show();
             } else {
-                // Thêm sản phẩm vào giỏ hàng
-                startActivity(new Intent(TreatmentDetails.this, BookInformation.class));
+                startActivity(new Intent(TreatmentDetails.this, BookInformation.class).putExtra("treatment_id", getIntent().getIntExtra("treatment_id", 0)));
             }
         });
 
