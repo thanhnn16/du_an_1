@@ -4,6 +4,7 @@ package com.miwth.allure_spa.ui.views.treatment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,6 +40,8 @@ public class TreatmentDetails extends AppCompatActivity {
 
     CardView cvBookNow;
 
+    ImageButton ibBack;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,12 @@ public class TreatmentDetails extends AppCompatActivity {
         llMoTaLT = findViewById(R.id.llMoTaLT);
         cvBookNow = findViewById(R.id.cvBookNow);
         llComment = findViewById(R.id.llComment);
+
+        ibBack = findViewById(R.id.ibBack);
+
+        ibBack.setOnClickListener(v -> {
+            finish();
+        });
 
         cvBookNow.setOnClickListener(v -> {
             TokenManager tokenManager = new TokenManager(TreatmentDetails.this);

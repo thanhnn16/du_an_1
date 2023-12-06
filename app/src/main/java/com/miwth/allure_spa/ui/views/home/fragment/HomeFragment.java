@@ -84,14 +84,6 @@ public class HomeFragment extends Fragment {
         llNews = homeFragmentView.findViewById(R.id.llNews);
         llContact = homeFragmentView.findViewById(R.id.llContact);
 
-         btnCart = homeFragmentView.findViewById(R.id.btnCart);
-        btnCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Cart.class);
-                startActivity(intent);
-            }
-        });
 
         Intent intent = new Intent(getActivity(), WebviewActivity.class);
         llIntroduction.setOnClickListener(v -> {
@@ -142,6 +134,12 @@ public class HomeFragment extends Fragment {
             if (sideMenuCallBack != null) {
                 sideMenuCallBack.onMenuIconClick();
             }
+        });
+
+        ImageButton btnCart = homeFragmentView.findViewById(R.id.btnCart);
+        btnCart.setOnClickListener(v -> {
+            Intent intent1 = new Intent(getActivity(), Cart.class);
+            startActivity(intent1);
         });
 
         setUpSeeMore();

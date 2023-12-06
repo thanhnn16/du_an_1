@@ -14,13 +14,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.miwth.allure_spa.R;
+import com.miwth.allure_spa.api.auth.TokenManager;
 import com.miwth.allure_spa.api.cosmetic.CosmeticsRepository;
 import com.miwth.allure_spa.api.cosmetic.CosmeticsResponse;
+import com.miwth.allure_spa.model.CartItem;
 import com.miwth.allure_spa.model.Cosmetics;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import com.google.gson.Gson;
+
 
 public class CosmeticDetailActivity extends AppCompatActivity {
     private static final String TAG = "COSMETIC_DETAIL_ACTIVITY";
@@ -65,25 +70,23 @@ public class CosmeticDetailActivity extends AppCompatActivity {
         });
 
         cvAddToCartBtn.setOnClickListener(v -> {
-            sharedPreferences = getSharedPreferences("Cart", MODE_PRIVATE);
-            String products = sharedPreferences.getString("products", "");
-            String cosmeticName = tvCosmeticName.getText().toString();
-            String cosmeticPrice = tvCosmeticPrice.getText().toString();
-            String cosmeticQty = tvTreatmentDetailQty.getText().toString();
-            String cosmeticImage = "https://i.imgur.com/2YJmYqI.png";
-            String productDetail = cosmeticName + "," + cosmeticPrice + "," + cosmeticQty + "," + cosmeticImage;
-            if (products.equals("")) {
-                products = productDetail;
+            TokenManager tokenManager = new TokenManager(CosmeticDetailActivity.this);
+            String token = tokenManager.getToken();
+            Log.d(TAG, "Token: " + token);
+            if (token.isEmpty()) {
+                Toast.makeText(CosmeticDetailActivity.this, "Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng",
+                        Toast.LENGTH_SHORT).show();
             } else {
-                products += ";" + productDetail;
+                String imageBase64 = "";
+                CartItem cartItem = new CartItem(tvCosmeticName.getText().toString(), tvCosmeticPrice.getText().toString(), tvTreatmentDetailQty.getText().toString(), imageBase64);
+
+                // Save the CartItem to the shared preferences
+                saveCartItem(cartItem);
+
+                Toast.makeText(CosmeticDetailActivity.this, "Sản phẩm đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
             }
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("products", products);
-            editor.apply();
-
-            Toast.makeText(CosmeticDetailActivity.this, "Sản phẩm đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
         });
+
 
 
         Intent intent = getIntent();
@@ -131,5 +134,17 @@ public class CosmeticDetailActivity extends AppCompatActivity {
                 Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });
+    }
+
+
+// ...
+
+    private void saveCartItem(CartItem cartItem) {
+        SharedPreferences sharedPreferences = getSharedPreferences("Cart", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(cartItem);
+        editor.putString(cartItem.getName(), json);
+        editor.apply();
     }
 }

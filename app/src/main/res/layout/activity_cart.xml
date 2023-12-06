@@ -7,7 +7,7 @@
     tools:context=".ui.views.Cart.Cart">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbarCart"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:layout_alignParentTop="true"
@@ -44,10 +44,10 @@
         android:id="@+id/tvCartNull"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="12dp"
+        android:layout_below="@id/toolbarCart"
         android:layout_centerInParent="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
         android:text="Giỏ hàng của bạn hiện đang trống"
         android:textColor="#000000"
         android:textSize="18sp"
@@ -62,7 +62,6 @@
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
-        android:background="@color/white"
-        android:visibility="gone" />
+        android:background="@color/white" />
 
 </RelativeLayout>
