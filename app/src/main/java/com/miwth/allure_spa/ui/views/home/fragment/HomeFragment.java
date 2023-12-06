@@ -219,6 +219,9 @@ public class HomeFragment extends Fragment {
         rvTreatment.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         rvTreatment.setAdapter(treatmentAdapter);
 
+        rvBestSeller.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        rvBestSeller.setAdapter(bestSellCosmeticAdapter);
+
     }
 
     private void setUpSeeMore() {
