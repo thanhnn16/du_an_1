@@ -17,13 +17,6 @@
             android:layout_alignParentTop="true"
             android:background="@color/white">
 
-            <ImageButton
-                android:id="@+id/btnBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:background="@null"
-                android:src="@drawable/chevron_left" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -49,6 +42,7 @@
 
 
         <TextView
+            android:id="@+id/tvRecentSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/searchView"

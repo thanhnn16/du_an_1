@@ -31,7 +31,7 @@ public class Rating_Reviews extends AppCompatActivity {
     private final String TAG = "Rating_Reviews";
     View bottomSheetView;
 
-    ImageButton btnDeletePhoto;
+    ImageButton btnDeletePhoto, btnBack;
     private Slider slider5, slider4, slider3, slider2, slider1;
     private TextView tv5, tv4, tv3, tv2, tv1;
     private RecyclerView rvRatingAndReviews;
@@ -41,6 +41,11 @@ public class Rating_Reviews extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_reviews);
+
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> {
+            finish();
+        });
 
 
         slider5 = findViewById(R.id.slide5);

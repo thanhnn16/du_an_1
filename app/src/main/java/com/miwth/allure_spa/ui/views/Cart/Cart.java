@@ -1,29 +1,48 @@
 package com.miwth.allure_spa.ui.views.Cart;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.model.CartItem;
 import com.miwth.allure_spa.ui.adapter.CartAdapter;
+import com.miwth.allure_spa.ui.views.Payment.Payment;
+import com.miwth.allure_spa.util.callback.CartItemCheckCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Cart extends AppCompatActivity {
+public class Cart extends AppCompatActivity implements CartItemCheckCallBack {
+
+    View bottomSheetView;
     RecyclerView rvCart;
     CartAdapter cartAdapter;
 
     TextView tvCartNull;
     List<CartItem> cartItems;
+
+    ImageButton btnDelete,  btnBack;
+
+    private int totalPrice = 0;
+
+    private TextView tvTotalPrice;
+
+    CardView btnAddToCart;
+
+
 
     private void loadCartItems() {
         SharedPreferences sharedPreferences = getSharedPreferences("Cart", MODE_PRIVATE);
@@ -48,6 +67,13 @@ public class Cart extends AppCompatActivity {
 
         rvCart = findViewById(R.id.rvCart);
         tvCartNull = findViewById(R.id.tvCartNull);
+//        btnDelete = findViewById(R.id.btnDelete);
+        btnBack = findViewById(R.id.btnBack);
+
+        btnBack.setOnClickListener(v -> {
+            finish();
+        });
+
 
         cartItems = new ArrayList<>();
         loadCartItems();
@@ -59,5 +85,28 @@ public class Cart extends AppCompatActivity {
         cartAdapter = new CartAdapter(cartItems);
         rvCart.setLayoutManager(new LinearLayoutManager(this));
         rvCart.setAdapter(cartAdapter);
+
     }
+
+
+    @Override
+    public void onCheck(int totalPrice) {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.bottom_sheet_cart, null);
+
+        tvTotalPrice = bottomSheetView.findViewById(R.id.tvTotalPrice);
+        tvTotalPrice.setText(String.valueOf(totalPrice));
+
+        btnAddToCart = bottomSheetView.findViewById(R.id.btnAddToCart);
+
+        btnAddToCart.setOnClickListener(v -> {
+            Intent intent = new Intent(Cart.this, Payment.class);
+            startActivity(intent);
+        });
+        bottomSheetDialog.setContentView(bottomSheetView);
+        bottomSheetDialog.show();
+    }
+
+
 }
+

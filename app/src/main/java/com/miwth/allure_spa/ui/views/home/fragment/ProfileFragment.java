@@ -31,6 +31,7 @@ public class ProfileFragment extends Fragment {
 
     private LinearLayout llLogout;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class ProfileFragment extends Fragment {
 
         // Initialize views and data
         listView = view.findViewById(R.id.lvProfile);
-        imgBack = view.findViewById(R.id.imgBack);
+
 
         functionList = Arrays.asList(
                 new FunctionItem(R.drawable.ic_heart_profile, "Yêu Thích"),
@@ -59,12 +60,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().onBackPressed();
-            }
-        });
+
 
         llLogout = view.findViewById(R.id.llLogout);
         llLogout.setOnClickListener(new View.OnClickListener() {

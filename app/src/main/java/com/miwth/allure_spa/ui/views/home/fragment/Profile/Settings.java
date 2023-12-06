@@ -32,9 +32,6 @@ public class Settings extends AppCompatActivity {
             finish();
         });
 
-//       switch_notification.setTrackTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primaryColor)));
-//       switch_notification.setThumbTintList(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.primaryColor)));
-
         setSwitch();
     }
     private void setSwitch() {

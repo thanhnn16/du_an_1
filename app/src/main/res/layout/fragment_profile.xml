@@ -13,13 +13,7 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <ImageButton
-            android:id="@+id/imgBack"
-            android:layout_width="10dp"
-            android:layout_height="15dp"
-            android:background="@drawable/ic_back"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp" />
+
 
         <TextView
             android:id="@+id/tvProfile"

@@ -1,6 +1,8 @@
 // TreatmentDetails.java
 package com.miwth.allure_spa.ui.views.treatment;
 
+import static com.miwth.allure_spa.api.ApiConstants.WEB_BASE_URL;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 
+import com.google.android.material.imageview.ShapeableImageView;
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.api.auth.TokenManager;
 import com.miwth.allure_spa.api.treatment.TreatmentsRepository;
@@ -24,6 +27,7 @@ import com.miwth.allure_spa.ui.adapter.TimeSlotAdapter;
 import com.miwth.allure_spa.ui.views.RateAndReviews.Rating_Reviews;
 import com.miwth.allure_spa.ui.views.cosmetic.CosmeticDetailActivity;
 import com.miwth.allure_spa.ui.views.treatment.BookService.BookInformation;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +46,8 @@ public class TreatmentDetails extends AppCompatActivity {
 
     ImageButton ibBack;
 
+    ShapeableImageView ivTreatmentDetail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,8 @@ public class TreatmentDetails extends AppCompatActivity {
         llMoTaLT = findViewById(R.id.llMoTaLT);
         cvBookNow = findViewById(R.id.cvBookNow);
         llComment = findViewById(R.id.llComment);
+
+        ivTreatmentDetail = findViewById(R.id.ivTreatmentDetail);
 
         ibBack = findViewById(R.id.ibBack);
 
@@ -104,6 +112,11 @@ public class TreatmentDetails extends AppCompatActivity {
                         TextView textView = new TextView(TreatmentDetails.this);
                         textView.setText("•\t\t" + s);
                         llMoTaLT.addView(textView);
+                    }
+
+                    if (!treatment.getImage().isEmpty()) {
+                        String imageUrl = WEB_BASE_URL + treatment.getImage();
+                        Picasso.get().load(imageUrl).into(ivTreatmentDetail);
                     }
 
 

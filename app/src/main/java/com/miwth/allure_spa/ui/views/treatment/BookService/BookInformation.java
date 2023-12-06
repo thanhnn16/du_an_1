@@ -2,7 +2,9 @@ package com.miwth.allure_spa.ui.views.treatment.BookService;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CalendarView;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +22,8 @@ public class BookInformation extends AppCompatActivity {
     public TimeSlotAdapter adapter1;
     public TimeSlotAdapter adapter2;
 
+    ImageButton ibBack;
+
     public int selectedPosition = -1; // The position of the currently selected TimeSlot
     public RecyclerView selectedRecyclerView = null; // The currently selected RecyclerView
 
@@ -30,10 +34,17 @@ public class BookInformation extends AppCompatActivity {
 
         getWindow().setStatusBarColor(getResources().getColor(R.color.white, null));
 
+
+
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         RecyclerView recyclerView2 = findViewById(R.id.recyclerView2);
 
         CalendarView calendarView = findViewById(R.id.cvTreatmentDetail);
+        ibBack = findViewById(R.id.ibBack);
+
+        ibBack.setOnClickListener(v -> {
+            finish();
+        });
 
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false) {
             @Override

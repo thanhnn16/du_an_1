@@ -28,6 +28,10 @@ public class CartItem {
         return qty;
     }
 
+    public void setQty(String qty) {
+        this.qty = qty;
+    }
+
     public String getImage() {
         return image;
     }

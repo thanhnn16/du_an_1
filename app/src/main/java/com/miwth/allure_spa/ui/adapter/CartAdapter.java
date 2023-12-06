@@ -1,12 +1,13 @@
 package com.miwth.allure_spa.ui.adapter;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.model.CartItem;
+import com.miwth.allure_spa.util.callback.CartItemCheckCallBack;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -39,12 +42,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.tvName.setText(cartItem.getName());
         holder.tvPrice.setText(cartItem.getPrice());
         holder.tvQty.setText(cartItem.getQty());
-        // Convert the Base64 string back to Bitmap
-        if (!cartItem.getImage().isEmpty()) { // Check if the image string is not empty
-            byte[] decodedString = Base64.decode(cartItem.getImage(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            holder.ivImage.setImageBitmap(decodedByte);
-        }
+
+        Picasso.get().load(cartItem.getImage()).into(holder.ivImage);
+
+        holder.cbSelect.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                int totalPrice = Integer.parseInt(cartItem.getPrice()) * Integer.parseInt(cartItem.getQty());
+                CartItemCheckCallBack cartItemCheckCallBack = (CartItemCheckCallBack) buttonView.getContext();
+                cartItemCheckCallBack.onCheck(totalPrice);
+            }
+        });
+
+
     }
 
     @Override
@@ -58,6 +67,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         CheckBox cbSelect;
 
+        ImageButton btnDelete, btnMinus, btnPlus;
+
+
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
@@ -66,6 +79,50 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             ivImage = itemView.findViewById(R.id.ivImage);
 
             cbSelect = itemView.findViewById(R.id.cbSelect);
+            btnDelete = itemView.findViewById(R.id.btnDelete);
+            btnMinus = itemView.findViewById(R.id.btnMinus);
+            btnPlus = itemView.findViewById(R.id.btnPlus);
+
+
+            btnMinus.setOnClickListener(v -> {
+                CartItem cartItem = cartItems.get(getAdapterPosition());
+                int qty = Integer.parseInt(cartItem.getQty());
+                if (qty > 1) {
+                    qty--;
+                    cartItem.setQty(String.valueOf(qty));
+                    tvQty.setText(String.valueOf(qty));
+
+                    SharedPreferences sharedPreferences = itemView.getContext().getSharedPreferences("Cart", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(cartItem.getName(), cartItem.toString());
+                    editor.apply();
+                }
+            });
+
+            btnPlus.setOnClickListener(v -> {
+                CartItem cartItem = cartItems.get(getAdapterPosition());
+                int qty = Integer.parseInt(cartItem.getQty());
+                qty++;
+                cartItem.setQty(String.valueOf(qty));
+                tvQty.setText(String.valueOf(qty));
+
+                SharedPreferences sharedPreferences = itemView.getContext().getSharedPreferences("Cart", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(cartItem.getName(), cartItem.toString());
+                editor.apply();
+            });
+
+            btnDelete.setOnClickListener(v -> {
+                CartItem cartItem = cartItems.get(getAdapterPosition());
+
+                SharedPreferences sharedPreferences = itemView.getContext().getSharedPreferences("Cart", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove(cartItem.getName());
+                editor.apply();
+
+                cartItems.remove(getAdapterPosition());
+                notifyItemRemoved(getAdapterPosition());
+            });
 
 
         }
