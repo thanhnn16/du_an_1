@@ -57,45 +57,20 @@ public class SearchFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                SearchRepository searchRepository = new SearchRepository();
-                Call<SearchResponse> call = searchRepository.getResults(query);
-                call.enqueue(new Callback<SearchResponse>() {
-                    @Override
-                    public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
-                        if (response.isSuccessful()) {
-                            ArrayList<Search> searchArrayList = new ArrayList<>();
-                            if (response.body().getResults() != null) {
-                                searchArrayList.addAll(response.body().getResults());
-                                recentSearch.setVisibility(View.GONE);
-                                rvSearchResult.setVisibility(View.VISIBLE);
-                                searchResultAdapter = new SearchResultAdapter(searchArrayList);
-                                rvSearchResult.setAdapter(searchResultAdapter);
-                            } else {
-                                rvSearchResult.setVisibility(View.GONE);
-                                tvRecentSearch.setText("Không tìm thấy kết quả nào cho \"" + query + "\"");
-
-
-                            }
-                        } else {
-                            Log.d(TAG, "onResponse: " + response.message());
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<SearchResponse> call, Throwable t) {
-                        Log.d(TAG, "onFailure: " + t.getMessage());
-                    }
-                });
+                searchFunction(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                searchFunction(newText);
+
                 if (newText.isEmpty()) {
                     rvSearchResult.setVisibility(View.GONE);
                     tvRecentSearch.setText("");
-                } else
+                } else {
                     rvSearchResult.setVisibility(View.VISIBLE);
+                }
 
                 return false;
             }
@@ -103,5 +78,35 @@ public class SearchFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void searchFunction(String query) {
+        SearchRepository searchRepository = new SearchRepository();
+        Call<SearchResponse> call = searchRepository.getResults(query);
+        call.enqueue(new Callback<SearchResponse>() {
+            @Override
+            public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
+                if (response.isSuccessful()) {
+                    ArrayList<Search> searchArrayList = new ArrayList<>();
+                    if (response.body().getResults() != null) {
+                        searchArrayList.addAll(response.body().getResults());
+                        recentSearch.setVisibility(View.GONE);
+                        rvSearchResult.setVisibility(View.VISIBLE);
+                        searchResultAdapter = new SearchResultAdapter(requireActivity(), searchArrayList);
+                        rvSearchResult.setAdapter(searchResultAdapter);
+                    } else {
+                        rvSearchResult.setVisibility(View.GONE);
+                        tvRecentSearch.setText("Không tìm thấy kết quả nào cho \"" + query + "\"");
+                    }
+                } else {
+                    Log.d(TAG, "onResponse: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchResponse> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.getMessage());
+            }
+        });
     }
 }
