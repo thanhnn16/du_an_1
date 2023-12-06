@@ -41,6 +41,8 @@ public class Rating_Reviews extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_reviews);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.white, null));
+
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> {
@@ -62,11 +64,12 @@ public class Rating_Reviews extends AppCompatActivity {
 
         rvRatingAndReviews = findViewById(R.id.rvRatingAndReviews);
 
-        tv5.setText("10");
-        tv4.setText("20");
-        tv3.setText("30");
-        tv2.setText("40");
-        tv1.setText("50");
+
+        tv5.setText("100");
+        tv4.setText("40");
+        tv3.setText("21");
+        tv2.setText("0");
+        tv1.setText("0");
 
         updateSliderValue(slider5, tv5);
         updateSliderValue(slider4, tv4);

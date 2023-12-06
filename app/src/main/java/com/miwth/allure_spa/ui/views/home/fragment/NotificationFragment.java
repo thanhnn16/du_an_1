@@ -33,6 +33,7 @@ public class NotificationFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
 
+
         btnBack = view.findViewById(R.id.btnBack);
 
         btnBack.setOnClickListener(v -> {

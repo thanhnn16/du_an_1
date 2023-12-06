@@ -29,6 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.google.gson.Gson;
+import com.miwth.allure_spa.ui.views.RateAndReviews.Rating_Reviews;
 import com.squareup.picasso.Picasso;
 
 
@@ -40,7 +41,7 @@ public class CosmeticDetailActivity extends AppCompatActivity {
     TextView tvCosmeticName, tvCosmeticPrice, tvAddToCartBtn, tvTreatmentDetailQty;
 
     ImageView ivTreatmentDetailMinus, ivTreatmentDetailPlus;
-    LinearLayout llCongDung, llMoTaSP;
+    LinearLayout llCongDung, llMoTaSP, llAddToCartBtn;
 
     CardView cvAddToCartBtn;
 
@@ -71,6 +72,13 @@ public class CosmeticDetailActivity extends AppCompatActivity {
         ivTreatmentDetailMinus = findViewById(R.id.ivTreatmentDetailMinus);
         ivTreatmentDetailPlus = findViewById(R.id.ivTreatmentDetailPlus);
         tvTreatmentDetailQty = findViewById(R.id.tvTreatmentDetailQty);
+        llAddToCartBtn = findViewById(R.id.llAddToCartBtn);
+
+        llAddToCartBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(CosmeticDetailActivity.this, Rating_Reviews.class);
+            startActivity(intent);
+        });
+
         ibBack = findViewById(R.id.ibBack);
 
         ibBack.setOnClickListener(v -> {

@@ -65,14 +65,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4.3"
+                        android:text="4.9"
                         android:textColor="#222222"
                         android:textSize="44sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2.3 rating"
+                        android:text="5.0 rating"
                         android:textColor="#9B9B9B"
                         android:textSize="14sp"
                         android:textStyle="bold" />

@@ -21,6 +21,8 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.white, null));
+
 
         switch_notification = findViewById(R.id.switch_notification);
         switch_update = findViewById(R.id.switch_update);
