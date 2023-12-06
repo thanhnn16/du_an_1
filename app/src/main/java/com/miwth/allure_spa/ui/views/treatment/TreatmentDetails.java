@@ -15,11 +15,13 @@ import androidx.cardview.widget.CardView;
 
 
 import com.miwth.allure_spa.R;
+import com.miwth.allure_spa.api.auth.TokenManager;
 import com.miwth.allure_spa.api.treatment.TreatmentsRepository;
 import com.miwth.allure_spa.api.treatment.TreatmentsResponse;
 import com.miwth.allure_spa.model.Treatments;
 import com.miwth.allure_spa.ui.adapter.TimeSlotAdapter;
 import com.miwth.allure_spa.ui.views.RateAndReviews.Rating_Reviews;
+import com.miwth.allure_spa.ui.views.cosmetic.CosmeticDetailActivity;
 import com.miwth.allure_spa.ui.views.treatment.BookService.BookInformation;
 
 import java.util.ArrayList;
@@ -51,16 +53,23 @@ public class TreatmentDetails extends AppCompatActivity {
         cvBookNow = findViewById(R.id.cvBookNow);
         llComment = findViewById(R.id.llComment);
 
+        cvBookNow.setOnClickListener(v -> {
+            TokenManager tokenManager = new TokenManager(TreatmentDetails.this);
+            String token = tokenManager.getToken();
+            Log.d(TAG, "Token: " + token);
+            if (token.isEmpty()) {
+                Toast.makeText(TreatmentDetails.this, "Bạn cần đăng nhập để đặt lịch", Toast.LENGTH_SHORT).show();
+            } else {
+                // Thêm sản phẩm vào giỏ hàng
+                startActivity(new Intent(TreatmentDetails.this, BookInformation.class));
+            }
+        });
+
         llComment.setOnClickListener(v -> {
             Intent intent = new Intent(TreatmentDetails.this, Rating_Reviews.class);
             startActivity(intent);
         });
 
-
-        cvBookNow.setOnClickListener(v -> {
-            Intent intent = new Intent(TreatmentDetails.this, BookInformation.class);
-            startActivity(intent);
-        });
 
         Intent intent = getIntent();
         int treatmentId = intent.getIntExtra("treatment_id", 0);

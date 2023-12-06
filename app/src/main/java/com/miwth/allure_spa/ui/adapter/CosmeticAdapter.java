@@ -17,9 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.model.Cosmetics;
 import com.miwth.allure_spa.ui.views.cosmetic.CosmeticDetailActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.miwth.allure_spa.api.ApiConstants.WEB_BASE_URL;
 
 public class CosmeticAdapter extends RecyclerView.Adapter<CosmeticAdapter.CosmeticViewHolder> {
 
@@ -74,8 +77,11 @@ public class CosmeticAdapter extends RecyclerView.Adapter<CosmeticAdapter.Cosmet
         }
 
         public void bind(Cosmetics cosmetic) {
+            String imgUrl = WEB_BASE_URL + cosmetic.getImage();
+            Log.d("img", "bind: " + imgUrl);
             tvTitle.setText(cosmetic.getCosmeticsName());
             tvPrice.setText(String.format("%,d", cosmetic.getPrice()));
+            Picasso.get().load(imgUrl).into(imageView);
 
         }
 //            tvPrice.setText(String.valueOf(cosmetic.getPrice()));

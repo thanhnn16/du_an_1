@@ -1,14 +1,17 @@
 package com.miwth.allure_spa.ui.views.cosmetic;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.api.cosmetic.CosmeticsRepository;
@@ -21,9 +24,16 @@ import retrofit2.Response;
 
 public class CosmeticDetailActivity extends AppCompatActivity {
     private static final String TAG = "COSMETIC_DETAIL_ACTIVITY";
+    SharedPreferences sharedPreferences;
+
     CosmeticsRepository cosmeticsRepository;
-    TextView tvCosmeticName, tvCosmeticPrice;
+    TextView tvCosmeticName, tvCosmeticPrice, tvAddToCartBtn, tvTreatmentDetailQty;
+
+    ImageView ivTreatmentDetailMinus, ivTreatmentDetailPlus;
     LinearLayout llCongDung, llMoTaSP;
+
+    CardView cvAddToCartBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +45,45 @@ public class CosmeticDetailActivity extends AppCompatActivity {
         tvCosmeticPrice = findViewById(R.id.tvCosmeticDetailPrice);
         llCongDung = findViewById(R.id.llCongDung);
         llMoTaSP = findViewById(R.id.llMoTaSP);
+        cvAddToCartBtn = findViewById(R.id.cvAddToCartBtn);
+        tvAddToCartBtn = findViewById(R.id.tvAddToCartBtn);
+
+        ivTreatmentDetailMinus = findViewById(R.id.ivTreatmentDetailMinus);
+        ivTreatmentDetailPlus = findViewById(R.id.ivTreatmentDetailPlus);
+        tvTreatmentDetailQty = findViewById(R.id.tvTreatmentDetailQty);
+
+        ivTreatmentDetailMinus.setOnClickListener(v -> {
+            int currentQty = Integer.parseInt(tvTreatmentDetailQty.getText().toString());
+            if (currentQty > 1) {
+                tvTreatmentDetailQty.setText(String.valueOf(currentQty - 1));
+            }
+        });
+
+        ivTreatmentDetailPlus.setOnClickListener(v -> {
+            int currentQty = Integer.parseInt(tvTreatmentDetailQty.getText().toString());
+            tvTreatmentDetailQty.setText(String.valueOf(currentQty + 1));
+        });
+
+        cvAddToCartBtn.setOnClickListener(v -> {
+            sharedPreferences = getSharedPreferences("Cart", MODE_PRIVATE);
+            String products = sharedPreferences.getString("products", "");
+            String cosmeticName = tvCosmeticName.getText().toString();
+            String cosmeticPrice = tvCosmeticPrice.getText().toString();
+            String cosmeticQty = tvTreatmentDetailQty.getText().toString();
+            String cosmeticImage = "https://i.imgur.com/2YJmYqI.png";
+            String productDetail = cosmeticName + "," + cosmeticPrice + "," + cosmeticQty + "," + cosmeticImage;
+            if (products.equals("")) {
+                products = productDetail;
+            } else {
+                products += ";" + productDetail;
+            }
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("products", products);
+            editor.apply();
+
+            Toast.makeText(CosmeticDetailActivity.this, "Sản phẩm đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+        });
 
 
         Intent intent = getIntent();

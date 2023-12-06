@@ -50,4 +50,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.jakewharton.threetenabp:threetenabp:1.3.1")
 
+    implementation("com.squareup.picasso:picasso:2.71828")
+
+
 }

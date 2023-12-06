@@ -24,6 +24,7 @@ import com.miwth.allure_spa.model.Cosmetics;
 import com.miwth.allure_spa.model.Treatments;
 import com.miwth.allure_spa.ui.adapter.CosmeticAdapter;
 import com.miwth.allure_spa.ui.adapter.TreatmentAdapter;
+import com.miwth.allure_spa.ui.views.Cart.Cart;
 import com.miwth.allure_spa.ui.views.SeeMoreActivity;
 import com.miwth.allure_spa.ui.views.WebviewActivity;
 import com.miwth.allure_spa.util.callback.SideMenuCallBack;
@@ -41,6 +42,8 @@ public class HomeFragment extends Fragment {
     LinearLayout llIntroduction, llVoucher, llService, llSanPhamDocQuyen, llSanPhamMayMoc, llCourse, llNews, llContact;
     RecyclerView rvCosmetic, rvTreatment, rvNews, rvBestSeller;
     LinearLayout tvSeeMoreCosmetic, tvSeeMoreTreatment, tvSeeMoreNews, tvSeeMoreBestSeller;
+
+    ImageButton btnCart;
     ArrayList<Cosmetics> cosmeticsArrayList;
     ArrayList<Treatments> treatmentArrayList;
     Context context;
@@ -80,6 +83,16 @@ public class HomeFragment extends Fragment {
         llCourse = homeFragmentView.findViewById(R.id.llCourse);
         llNews = homeFragmentView.findViewById(R.id.llNews);
         llContact = homeFragmentView.findViewById(R.id.llContact);
+
+         btnCart = homeFragmentView.findViewById(R.id.btnCart);
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Cart.class);
+                startActivity(intent);
+            }
+        });
+
         Intent intent = new Intent(getActivity(), WebviewActivity.class);
         llIntroduction.setOnClickListener(v -> {
             intent.putExtra("url", "gioi-thieu");

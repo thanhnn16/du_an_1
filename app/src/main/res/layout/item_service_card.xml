@@ -13,9 +13,9 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imgServiceCard"
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="180sp"
             android:scaleType="centerCrop"
             android:src="@drawable/placeholder"
             app:shapeAppearanceOverlay="@style/Theme.DuAn1.ShapeableOverlay.Rounded" />
@@ -24,7 +24,7 @@
             android:id="@+id/tvServiceTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imgServiceCard"
+            android:layout_below="@id/imageView"
             android:layout_alignParentStart="true"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="10dp"

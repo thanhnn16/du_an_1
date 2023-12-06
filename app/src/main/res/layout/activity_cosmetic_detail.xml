@@ -236,7 +236,7 @@
                         android:layout_toStartOf="@+id/ivTreatmentDetailPlus"
                         android:layout_toEndOf="@id/ivTreatmentDetailMinus"
                         android:fontFamily="@font/quicksand_bold"
-                        android:text="3"
+                        android:text="1"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
@@ -342,6 +342,7 @@
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvAddToCartBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"

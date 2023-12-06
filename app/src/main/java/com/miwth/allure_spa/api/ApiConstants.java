@@ -19,6 +19,11 @@ public class ApiConstants {
 //    public static final String API_BASE_URL = "http://10.0.1.172:8000/api/";
 //    public static final String API_BASE_URL = "http://192.168.1.119:8000/api/";
     public static final String API_BASE_URL = "http://167.172.86.47/api/";
+    public static final String WEB_BASE_URL = "http://167.172.86.47/";
+
+//    public static final String API_BASE_URL = "http://"
+
+//    public static final String UPLOADS_BASE_URL = "http://167.172.86.47/uploads/img/";
 
     //    RESOURCE URL
     public static final String RESOURCE_URL = "http://192.168.1.10:8000/storage/";

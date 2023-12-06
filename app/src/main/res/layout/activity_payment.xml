@@ -153,7 +153,7 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_marginStart="10dp"
-                        android:src="@drawable/ic_visa" />
+                        android:src="@drawable/ticket" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -177,7 +177,7 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_marginStart="10dp"
-                        android:src="@drawable/ic_atm" />
+                        android:src="@drawable/ticket" />
 
                     <TextView
                         android:layout_width="match_parent"
