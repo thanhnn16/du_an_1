@@ -29,8 +29,11 @@ import com.miwth.allure_spa.ui.views.cosmetic.CosmeticDetailActivity;
 import com.miwth.allure_spa.ui.views.treatment.BookService.BookInformation;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -77,7 +80,13 @@ public class TreatmentDetails extends AppCompatActivity {
             if (token.isEmpty()) {
                 Toast.makeText(TreatmentDetails.this, "Bạn cần đăng nhập để đặt lịch", Toast.LENGTH_SHORT).show();
             } else {
-                startActivity(new Intent(TreatmentDetails.this, BookInformation.class).putExtra("treatment_id", getIntent().getIntExtra("treatment_id", 0)));
+                // Get the service price
+                String servicePrice = tvTreatmentPrice.getText().toString();
+
+                startActivity(new Intent(TreatmentDetails.this, BookInformation.class)
+                        .putExtra("treatment_id", getIntent().getIntExtra("treatment_id", 0))
+                        .putExtra("treatment_price", getIntent().getIntExtra("price", 0)));
+
             }
         });
 

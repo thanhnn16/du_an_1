@@ -143,92 +143,12 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:id="@+id/llTreatmentDetailService"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_below="@id/tvServiceDetail"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/border_book_service"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/quicksand_bold"
-                        android:text="Chăm sóc da mặt"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tvTreatmentDetailPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/quicksand_bold"
-                        android:text="100.000đ"
-                        android:textColor="@color/primaryColor"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <RelativeLayout
-                    android:id="@+id/llSelectQty"
-                    android:layout_width="130dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/border_book_service"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:id="@+id/ivTreatmentDetailMinus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="10dp"
-                        android:src="@drawable/minus_square" />
-
-                    <TextView
-                        android:id="@+id/tvTreatmentDetailQty"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toStartOf="@+id/ivTreatmentDetailPlus"
-                        android:layout_toEndOf="@id/ivTreatmentDetailMinus"
-                        android:fontFamily="@font/quicksand_bold"
-                        android:text="3"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
-
-                    <ImageView
-                        android:id="@+id/ivTreatmentDetailPlus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="10dp"
-                        android:src="@drawable/add_square" />
-
-                </RelativeLayout>
-
-            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvPromotionCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/llTreatmentDetailService"
+                android:layout_below="@id/tvServiceDetail"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/quicksand_bold"
                 android:text="Mã Khuyến Mãi"
@@ -320,7 +240,10 @@
                     android:id="@+id/etTreatmentDetailNote"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@color/transparent"
                     android:hint="Ví dụ: Da dầu, da khô,..."
                     android:inputType="text"

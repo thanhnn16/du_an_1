@@ -11,13 +11,16 @@ public class Search {
     private String imageUrl;
 
     private String type;
+    private int price;
 
-    public Search(int id, String title, String description, String imageUrl, String type) {
+
+    public Search(int id, String title, String description, String imageUrl, String type, int price) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.imageUrl = imageUrl;
         this.type = type;
+        this.price = price;
     }
 
     public String getTitle() {
@@ -38,5 +41,9 @@ public class Search {
 
     public int getId() {
         return id;
+    }
+
+    public int getPrice() {
+        return price;
     }
 }

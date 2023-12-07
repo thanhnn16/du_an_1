@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +45,10 @@ public class BookInformation extends AppCompatActivity {
     List<TimeSlot> timeSlots, timeSlots2;
     CalendarView calendarView;
 
+    TextView tvTreatmentDetailTotalPrice;
+
+    EditText etTreatmentDetailNote;
+
     public int selectedPosition = -1;
     public RecyclerView selectedRecyclerView = null;
     TokenManager tokenManager;
@@ -63,6 +69,19 @@ public class BookInformation extends AppCompatActivity {
         btnBookNow = findViewById(R.id.btnBookNow);
 
         ibBack = findViewById(R.id.ibBack);
+
+        etTreatmentDetailNote = findViewById(R.id.etTreatmentDetailNote);
+
+        tvTreatmentDetailTotalPrice = findViewById(R.id.tvTreatmentDetailTotalPrice);
+
+        int servicePrice = getIntent().getIntExtra("treatment_price", 0);
+        String formattedPrice = String.format("%,d", servicePrice) + " VNĐ";
+        tvTreatmentDetailTotalPrice.setText(formattedPrice);
+
+
+
+
+
 
 
         ibBack.setOnClickListener(v -> {
@@ -133,7 +152,12 @@ public class BookInformation extends AppCompatActivity {
 
                 int userId = Integer.parseInt(tokenManager.getUserId());
 
-                Appointment newAppointment = new Appointment(userId, treatmentId, start_date, end_date, false, false, "pending", "Book từ app");
+                String note = etTreatmentDetailNote.getText().toString();
+                if (note.isEmpty()) {
+                    note = "Book từ app";
+                }
+
+                Appointment newAppointment = new Appointment(userId, treatmentId, start_date, end_date, false, false, "pending", note);
 
                 AppointmentsRepository appointmentsRepository = new AppointmentsRepository(new TokenManager(this).getToken());
 

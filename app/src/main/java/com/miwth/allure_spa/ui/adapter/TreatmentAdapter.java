@@ -55,6 +55,7 @@ public class TreatmentAdapter extends RecyclerView.Adapter<TreatmentAdapter.Trea
         holder.cardView.setOnClickListener(v -> {
             Intent intent = new Intent(context, TreatmentDetails.class);
             intent.putExtra("treatment_id", treatment.getId());
+            intent.putExtra("price", treatment.getPrice());
             context.startActivity(intent);
         });
     }

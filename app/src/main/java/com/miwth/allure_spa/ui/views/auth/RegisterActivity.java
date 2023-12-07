@@ -2,6 +2,8 @@ package com.miwth.allure_spa.ui.views.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,11 +13,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.api.auth.AuthResponse;
 import com.miwth.allure_spa.api.auth.TokenManager;
 import com.miwth.allure_spa.api.auth.UserRepository;
 import com.miwth.allure_spa.ui.views.home.HomeActivity;
+import com.miwth.allure_spa.ui.views.home.fragment.HomeFragment;
+import com.miwth.allure_spa.ui.views.home.fragment.Profile.DetailUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -28,12 +36,14 @@ public class RegisterActivity extends AppCompatActivity {
     String phoneNumber;
     TextView tvPhoneNumber;
     EditText edtPassword, edtConfirmPassword;
-    Button btnRegister;
+    Button btnRegister, btnLogin, btnFillInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        getWindow().setStatusBarColor(getResources().getColor(R.color.white, null));
 
         Intent intent = getIntent();
         phoneNumber = "0" + intent.getStringExtra("phoneNumber");
@@ -45,6 +55,40 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnSignup);
 
         tvPhoneNumber.setText(phoneNumber);
+
+        edtPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                checkInputs();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkInputs();
+            }
+        });
+
+        edtConfirmPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                checkInputs();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkInputs();
+            }
+        });
 
         btnRegister.setOnClickListener(v -> {
             String password = edtPassword.getText().toString();
@@ -58,21 +102,50 @@ public class RegisterActivity extends AppCompatActivity {
                             if (response.body() == null) {
                                 return;
                             }
+
                             TokenManager tokenManager = new TokenManager(RegisterActivity.this);
                             tokenManager.saveToken(response.body().getToken());
-                            Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
-                            startActivity(intent);
-                            finish();
+
+                            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(RegisterActivity.this);
+                            bottomSheetDialog.setContentView(R.layout.bottom_sheet_detail_user);
+
+                             btnLogin = bottomSheetDialog.findViewById(R.id.btnLogin);
+                             btnFillInfo = bottomSheetDialog.findViewById(R.id.btnFillInfo);
+
+                            btnLogin.setOnClickListener(v -> {
+                                Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                                startActivity(intent);
+                                finish();
+
+                            });
+
+                            btnFillInfo.setOnClickListener(v -> {
+                                Intent intent = new Intent(RegisterActivity.this, DetailUser.class);
+                                startActivity(intent);
+                                finish();
+                            });
+
+
+                            bottomSheetDialog.show();
+
+
+
                         } else {
                             try {
-                                String errorResponse = response.errorBody() != null ? response.errorBody().string() : "";
-                                Log.d(TAG, "onResponse: " + errorResponse);
-                                if (errorResponse.contains(phoneNumber)) {
-                                    tvPhoneNumber.setTextColor(getResources().getColor(R.color.red, null));
-                                    Toast.makeText(RegisterActivity.this, getResources().getString(R.string.phone_number_already_exists), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    edtPassword.setError(getResources().getString(R.string.error));
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                    String message = jsonObject.getString("message");
+                                    Log.d(TAG, "Message: " + message);
+                                    if (message.contains("phone number")) {
+                                        tvPhoneNumber.setTextColor(getResources().getColor(R.color.red, null));
+                                        Toast.makeText(RegisterActivity.this, getResources().getString(R.string.phone_number_already_exists), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        edtPassword.setError(response.errorBody().string());
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
+
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -90,5 +163,32 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void checkInputs() {
+        String password = edtPassword.getText().toString();
+        String confirmPassword = edtConfirmPassword.getText().toString();
+
+        if (password.isEmpty() || confirmPassword.isEmpty()) {
+            if (password.isEmpty()) {
+                edtPassword.setError("Vui lòng nhập mật khẩu");
+            }
+            if (confirmPassword.isEmpty()) {
+                edtConfirmPassword.setError("Vui lòng nhập lại mật khẩu");
+            }
+            btnRegister.setBackgroundColor(getResources().getColor(R.color.primaryColorDisabled, null));
+            btnRegister.setEnabled(false);
+        } else if (password.length() < 6) {
+            edtPassword.setError("Mật khẩu phải có ít nhất 6 kí tự");
+            btnRegister.setBackgroundColor(getResources().getColor(R.color.primaryColorDisabled, null));
+            btnRegister.setEnabled(false);
+        } else if (!password.equals(confirmPassword)) {
+            edtConfirmPassword.setError("Mật khẩu không khớp");
+            btnRegister.setBackgroundColor(getResources().getColor(R.color.primaryColorDisabled, null));
+            btnRegister.setEnabled(false);
+        } else {
+            btnRegister.setBackgroundColor(getResources().getColor(R.color.primaryColor, null));
+            btnRegister.setEnabled(true);
+        }
     }
 }

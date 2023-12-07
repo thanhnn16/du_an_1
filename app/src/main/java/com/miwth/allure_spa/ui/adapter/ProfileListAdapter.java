@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.model.FunctionItem;
+import com.miwth.allure_spa.ui.views.home.fragment.Profile.DetailUser;
 import com.miwth.allure_spa.ui.views.home.fragment.Profile.Settings;
 
 import java.util.List;
@@ -59,6 +60,17 @@ public class ProfileListAdapter extends BaseAdapter {
         final FunctionItem functionItem = itemList.get(position);
         viewHolder.iconImageView.setImageResource(functionItem.getIconResId());
         viewHolder.textView.setText(functionItem.getFunctionName());
+
+        if ("Thông Tin Cá Nhân".equals(functionItem.getFunctionName())) {
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, DetailUser.class);
+                    context.startActivity(intent);
+                }
+            });
+        }
+
 
         if ("Cài Đặt".equals(functionItem.getFunctionName())) {
             convertView.setOnClickListener(new View.OnClickListener() {

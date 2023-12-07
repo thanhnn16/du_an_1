@@ -54,6 +54,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             } else {
                 Intent intent = new Intent(context, TreatmentDetails.class);
                 intent.putExtra("treatment_id", searchResult.getId());
+                intent.putExtra("price", searchResult.getPrice());
                 context.startActivity(intent);
             }
         });
