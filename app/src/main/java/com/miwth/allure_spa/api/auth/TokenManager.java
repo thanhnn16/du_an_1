@@ -16,22 +16,20 @@ public class TokenManager {
         return sharedPreferences.getString("token", "");
     }
 
-    public String getUserId() {
-        return sharedPreferences.getString("user_id", "");
+    public int getUserId() {
+        return sharedPreferences.getInt("user_id", 0);
     }
 
     public void saveToken(String token) {
         sharedPreferences.edit().putString("token", token).apply();
     }
 
-    public void saveUserId(String user_id) {
-        sharedPreferences.edit().putString("user_id", user_id).apply();
+    public void saveUserId(int user_id) {
+        sharedPreferences.edit().putInt("user_id", user_id).apply();
     }
 
     public void saveImage(String image) {
-
         String substring = image.substring(1);
-
         sharedPreferences.edit().putString("image", WEB_BASE_URL + substring).apply();
     }
 
@@ -53,6 +51,14 @@ public class TokenManager {
 
     public String getPhoneNumber() {
         return sharedPreferences.getString("phoneNumber", "");
+    }
+
+    public void saveFCMToken(String token) {
+        sharedPreferences.edit().putString("fcm_token", token).apply();
+    }
+
+    public String getFCMToken() {
+        return sharedPreferences.getString("fcm_token", "");
     }
 
 }

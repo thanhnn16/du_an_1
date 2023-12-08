@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:allowBackup="true"
@@ -19,22 +20,19 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.views.home.fragment.Profile.DetailUser"
-            android:exported="false" />
-        <activity
-            android:name=".ui.views.home.fragment.Notification.Notification"
+            android:name=".ui.views.home.fragment.profile.UserDetailActivity"
             android:exported="false" />
         <activity
             android:name=".ui.views.Cart.Cart"
             android:exported="false" />
         <activity
-            android:name=".ui.views.Payment.Payment"
+            android:name=".ui.views.payment.PaymentActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.views.RateAndReviews.Rating_Reviews"
+            android:name=".ui.views.rating.RatingActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.views.treatment.BookService.BookInformation"
+            android:name=".ui.views.treatment.booking.BookingActivity"
             android:exported="false" />
         <activity
             android:name=".ui.views.auth.LoginActivity"
@@ -70,7 +68,7 @@
             android:name=".ui.views.welcome.OnboardingActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.views.home.fragment.Profile.Settings"
+            android:name=".ui.views.home.fragment.profile.SettingsActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -86,6 +84,20 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo_without_text" />
+
+        <service
+            android:name=".api.FcmNotificationService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
     </application>
+
 
 </manifest>

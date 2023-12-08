@@ -16,9 +16,9 @@ public class Appointment {
     @Json(name = "end_date")
     private LocalDateTime endDate;
     @Json(name = "is_consultation")
-    private boolean isConsultation;
+    private int isConsultation;
     @Json(name = "is_all_day")
-    private boolean isAllDay;
+    private int isAllDay;
     private String status;
     private String note;
     @Json(name = "created_at")
@@ -26,7 +26,7 @@ public class Appointment {
     @Json(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public Appointment(int userId, int treatmentId, LocalDateTime startDate, LocalDateTime endDate, boolean isConsultation, boolean isAllDay, String status, String note) {
+    public Appointment(int userId, int treatmentId, LocalDateTime startDate, LocalDateTime endDate, int isConsultation, int isAllDay, String status, String note) {
         this.userId = userId;
         this.treatmentId = treatmentId;
         this.startDate = startDate;
@@ -57,11 +57,11 @@ public class Appointment {
         return endDate;
     }
 
-    public boolean isConsultation() {
+    public int isConsultation() {
         return isConsultation;
     }
 
-    public boolean isAllDay() {
+    public int isAllDay() {
         return isAllDay;
     }
 

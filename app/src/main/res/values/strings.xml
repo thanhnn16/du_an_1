@@ -76,4 +76,6 @@
     <string name="SelectDate">Chọn ngày</string>
     <string name="selectTime">Chọn giờ</string>
     <string name="ratingAndReViews"><![CDATA[Xếp hạng & Đánh giá]]></string>
+    <string name="welcome_customer">Chào bạn, khách</string>
+    <string name="save">Lưu</string>
 </resources>

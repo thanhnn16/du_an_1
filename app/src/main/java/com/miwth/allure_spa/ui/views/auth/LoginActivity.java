@@ -92,8 +92,12 @@ public class LoginActivity extends AppCompatActivity {
                             tokenManager = new TokenManager(LoginActivity.this);
                             tokenManager.saveToken(authResponse.getToken());
                             tokenManager.saveUserId(authResponse.getUserId());
-                            tokenManager.saveFullName(authResponse.getFullName());
-                            tokenManager.saveImage(authResponse.getImage());
+                            if (authResponse.getFullName() != null) {
+                                tokenManager.saveFullName(authResponse.getFullName());
+                            }
+                            if (authResponse.getImage() != null) {
+                                tokenManager.saveImage(authResponse.getImage());
+                            }
                             tokenManager.savePhoneNumber(authResponse.getPhoneNumber());
 
                             startActivity(new Intent(LoginActivity.this, HomeActivity.class));

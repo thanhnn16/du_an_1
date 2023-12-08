@@ -4,7 +4,7 @@ import com.squareup.moshi.Json;
 
 public class AuthResponse {
     private String token;
-    private String user_id;
+    private int user_id;
 
     private String image;
     @Json(name = "full_name")
@@ -14,7 +14,7 @@ public class AuthResponse {
     private String phoneNumber;
     private String error;
 
-    public AuthResponse(String token, String user_id, String image, String fullName, String phoneNumber, String error) {
+    public AuthResponse(String token, int user_id, String image, String fullName, String phoneNumber, String error) {
         this.token = token;
         this.user_id = user_id;
         this.image = image;
@@ -27,7 +27,7 @@ public class AuthResponse {
         return token;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return user_id;
     }
 

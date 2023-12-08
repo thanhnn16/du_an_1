@@ -12,15 +12,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.miwth.allure_spa.R;
+import com.miwth.allure_spa.api.auth.TokenManager;
 import com.miwth.allure_spa.ui.views.home.fragment.HomeFragment;
 import com.miwth.allure_spa.ui.views.home.fragment.NotificationFragment;
-import com.miwth.allure_spa.ui.views.home.fragment.ProfileFragment;
+import com.miwth.allure_spa.ui.views.home.fragment.profile.ProfileFragment;
 import com.miwth.allure_spa.ui.views.home.fragment.SearchFragment;
 import com.miwth.allure_spa.ui.views.welcome.WelcomeActivity;
 import com.miwth.allure_spa.util.callback.BackButtonCallBack;
@@ -63,16 +65,56 @@ public class HomeActivity extends AppCompatActivity implements SideMenuCallBack,
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            int id = item.getItemId();
-            if (id == R.id.homeFragment) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
-            } else if (id == R.id.searchFragment) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, searchFragment).commit();
-            } else if (id == R.id.notificationsFragment) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, notificationFragment).commit();
-            } else if (id == R.id.profileFragment) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).commit();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            if (homeFragment != null) transaction.hide(homeFragment);
+            if (searchFragment != null) transaction.hide(searchFragment);
+            if (notificationFragment != null) transaction.hide(notificationFragment);
+            if (profileFragment != null) transaction.hide(profileFragment);
+
+            int itemId = item.getItemId();
+            if (itemId == R.id.homeFragment) {
+                if (homeFragment == null) {
+                    homeFragment = new HomeFragment();
+                    transaction.add(R.id.fragment_container, homeFragment);
+                } else {
+                    transaction.show(homeFragment);
+                }
+            } else if (itemId == R.id.searchFragment) {
+                if (searchFragment == null) {
+                    searchFragment = new SearchFragment();
+                    transaction.add(R.id.fragment_container, searchFragment);
+                } else {
+                    transaction.show(searchFragment);
+                }
+            } else if (itemId == R.id.notificationsFragment) {
+                if (notificationFragment == null) {
+                    notificationFragment = new NotificationFragment();
+                    transaction.add(R.id.fragment_container, notificationFragment);
+                } else {
+                    transaction.show(notificationFragment);
+                }
+            } else if (itemId == R.id.profileFragment) {
+                TokenManager tokenManager = new TokenManager(this);
+                if (tokenManager.getToken().isEmpty()) {
+                    Toast.makeText(this, "Bạn cần đăng nhập để sử dụng chức năng này", Toast.LENGTH_SHORT).show();
+                    if (homeFragment == null) {
+                        homeFragment = new HomeFragment();
+                        transaction.add(R.id.fragment_container, homeFragment);
+                    } else {
+                        transaction.show(homeFragment);
+                    }
+                    bottomNavigationView.setSelectedItemId(R.id.homeFragment);
+
+                } else {
+                    if (profileFragment == null) {
+                        profileFragment = new ProfileFragment();
+                        transaction.add(R.id.fragment_container, profileFragment);
+                    } else {
+                        transaction.show(profileFragment);
+                    }
+                }
             }
+            transaction.commit();
             return true;
         });
 
@@ -82,9 +124,9 @@ public class HomeActivity extends AppCompatActivity implements SideMenuCallBack,
         mAuth = FirebaseAuth.getInstance();
 
         homeFragment = new HomeFragment();
-        searchFragment = new SearchFragment();
-        notificationFragment = new NotificationFragment();
-        profileFragment = new ProfileFragment();
+//        searchFragment = new SearchFragment();
+//        notificationFragment = new NotificationFragment();
+//        profileFragment = new ProfileFragment();
 
         drawerLayout = findViewById(R.id.drawerLayout);
 
@@ -126,7 +168,15 @@ public class HomeActivity extends AppCompatActivity implements SideMenuCallBack,
 
     @Override
     public void onBackButtonClick() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (homeFragment == null) {
+            homeFragment = new HomeFragment();
+            transaction.add(R.id.fragment_container, homeFragment);
+            transaction.show(homeFragment);
+        } else {
+            transaction.show(homeFragment);
+        }
+        transaction.commit();
         bottomNavigationView.setSelectedItemId(R.id.homeFragment);
     }
 }

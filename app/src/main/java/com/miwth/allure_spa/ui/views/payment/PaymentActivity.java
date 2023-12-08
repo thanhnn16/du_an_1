@@ -1,4 +1,4 @@
-package com.miwth.allure_spa.ui.views.Payment;
+package com.miwth.allure_spa.ui.views.payment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.widget.ImageButton;
 
 import com.miwth.allure_spa.R;
 
-public class Payment extends AppCompatActivity {
+public class PaymentActivity extends AppCompatActivity {
 
     ImageButton ibBack;
 

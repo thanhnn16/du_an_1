@@ -1,4 +1,4 @@
-package com.miwth.allure_spa.ui.views.RateAndReviews;
+package com.miwth.allure_spa.ui.views.rating;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -27,7 +27,7 @@ import com.miwth.allure_spa.ui.adapter.CommentRateAndReviewsAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rating_Reviews extends AppCompatActivity {
+public class RatingActivity extends AppCompatActivity {
     private final String TAG = "Rating_Reviews";
     View bottomSheetView;
 
@@ -104,7 +104,7 @@ public class Rating_Reviews extends AppCompatActivity {
         btnShowDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Rating_Reviews.this);
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(RatingActivity.this);
                 bottomSheetDialog.setContentView(bottomSheetView);
 
                 BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from((View) bottomSheetView.getParent());
@@ -124,7 +124,7 @@ public class Rating_Reviews extends AppCompatActivity {
                         intent.setType("image/*");
                         startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
 
-                        Toast.makeText(Rating_Reviews.this, "Chọn tối đa 2 hình sản phẩm.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RatingActivity.this, "Chọn tối đa 2 hình sản phẩm.", Toast.LENGTH_SHORT).show();
                     }
                 });
 

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.model.TimeSlot;
-import com.miwth.allure_spa.ui.views.treatment.BookService.BookInformation;
+import com.miwth.allure_spa.ui.views.treatment.booking.BookingActivity;
 
 import java.util.List;
 
@@ -43,7 +43,7 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
         holder.tvTime.setText(timeSlot.getTime());
         holder.tvTimeStatus.setText(timeSlot.getStatus());
 
-        if (position == ((BookInformation) context).selectedPosition && recyclerView == ((BookInformation) context).selectedRecyclerView) {
+        if (position == ((BookingActivity) context).selectedPosition && recyclerView == ((BookingActivity) context).selectedRecyclerView) {
             holder.itemView.setBackgroundResource(R.drawable.border_book_service_selected);
         } else {
             holder.itemView.setBackgroundResource(R.drawable.border_book_service);
@@ -51,11 +51,11 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
 
         int finalPosition = position;
         holder.itemView.setOnClickListener(v -> {
-            ((BookInformation) context).selectedPosition = finalPosition;
-            ((BookInformation) context).selectedRecyclerView = recyclerView;
+            ((BookingActivity) context).selectedPosition = finalPosition;
+            ((BookingActivity) context).selectedRecyclerView = recyclerView;
 
-            ((BookInformation) context).adapter1.notifyDataSetChanged();
-            ((BookInformation) context).adapter2.notifyDataSetChanged();
+            ((BookingActivity) context).adapter1.notifyDataSetChanged();
+            ((BookingActivity) context).adapter2.notifyDataSetChanged();
 
             Toast.makeText(context, "Khung giờ bạn chọn: " + timeSlot.getTime(), Toast.LENGTH_SHORT).show();
         });

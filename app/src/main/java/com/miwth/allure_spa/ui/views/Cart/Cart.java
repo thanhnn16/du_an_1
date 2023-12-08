@@ -18,7 +18,7 @@ import com.google.gson.Gson;
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.model.CartItem;
 import com.miwth.allure_spa.ui.adapter.CartAdapter;
-import com.miwth.allure_spa.ui.views.Payment.Payment;
+import com.miwth.allure_spa.ui.views.payment.PaymentActivity;
 import com.miwth.allure_spa.util.callback.CartItemCheckCallBack;
 
 import java.util.ArrayList;
@@ -100,7 +100,7 @@ public class Cart extends AppCompatActivity implements CartItemCheckCallBack {
         btnAddToCart = bottomSheetView.findViewById(R.id.btnAddToCart);
 
         btnAddToCart.setOnClickListener(v -> {
-            Intent intent = new Intent(Cart.this, Payment.class);
+            Intent intent = new Intent(Cart.this, PaymentActivity.class);
             startActivity(intent);
         });
         bottomSheetDialog.setContentView(bottomSheetView);

@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.model.FunctionItem;
-import com.miwth.allure_spa.ui.views.home.fragment.Profile.DetailUser;
-import com.miwth.allure_spa.ui.views.home.fragment.Profile.Settings;
+import com.miwth.allure_spa.ui.views.home.fragment.profile.UserDetailActivity;
+import com.miwth.allure_spa.ui.views.home.fragment.profile.SettingsActivity;
 
 import java.util.List;
 
@@ -65,7 +65,7 @@ public class ProfileListAdapter extends BaseAdapter {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, DetailUser.class);
+                    Intent intent = new Intent(context, UserDetailActivity.class);
                     context.startActivity(intent);
                 }
             });
@@ -76,7 +76,7 @@ public class ProfileListAdapter extends BaseAdapter {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, Settings.class);
+                    Intent intent = new Intent(context, SettingsActivity.class);
                     context.startActivity(intent);
                 }
             });

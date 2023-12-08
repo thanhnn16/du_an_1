@@ -1,10 +1,8 @@
-package com.miwth.allure_spa.ui.views.treatment.BookService;
+package com.miwth.allure_spa.ui.views.treatment.booking;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -18,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.api.appointment.AppointmentsRepository;
-import com.miwth.allure_spa.api.appointment.AppointmentsResponse;
 import com.miwth.allure_spa.api.auth.TokenManager;
 import com.miwth.allure_spa.model.Appointment;
 import com.miwth.allure_spa.model.TimeSlot;
@@ -34,7 +31,7 @@ import java.util.List;
 
 import retrofit2.Call;
 
-public class BookInformation extends AppCompatActivity {
+public class BookingActivity extends AppCompatActivity {
 
     private static final String TAG = "BOOK_INFORMATION_ACTIVITY";
     public TimeSlotAdapter adapter1;
@@ -150,14 +147,14 @@ public class BookInformation extends AppCompatActivity {
 
                 int treatmentId = intent.getIntExtra("treatment_id", 0);
 
-                int userId = Integer.parseInt(tokenManager.getUserId());
+                int userId = tokenManager.getUserId();
 
                 String note = etTreatmentDetailNote.getText().toString();
                 if (note.isEmpty()) {
                     note = "Book từ app";
                 }
 
-                Appointment newAppointment = new Appointment(userId, treatmentId, start_date, end_date, false, false, "pending", note);
+                Appointment newAppointment = new Appointment(userId, treatmentId, start_date, end_date, 0, 0, "pending", note);
 
                 AppointmentsRepository appointmentsRepository = new AppointmentsRepository(new TokenManager(this).getToken());
 
@@ -167,17 +164,17 @@ public class BookInformation extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
                         if (response.isSuccessful()) {
-                            Toast.makeText(BookInformation.this, "Đặt lịch thành công", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BookingActivity.this, "Đặt lịch thành công", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
-                            Toast.makeText(BookInformation.this, "Đặt lịch thất bại", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BookingActivity.this, "Đặt lịch thất bại", Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "onResponse: " + response.message());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(BookInformation.this, "Đặt lịch thất bại", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BookingActivity.this, "Đặt lịch thất bại", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "onFailure: " + t.getMessage());
                     }
                 });

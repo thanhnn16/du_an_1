@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".ui.views.home.fragment.Profile.Settings">
+    tools:context=".ui.views.home.fragment.profile.SettingsActivity">
 
     <ImageButton
         android:id="@+id/back"

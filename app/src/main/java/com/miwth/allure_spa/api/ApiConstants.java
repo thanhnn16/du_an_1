@@ -1,6 +1,5 @@
 package com.miwth.allure_spa.api;
 
-import com.miwth.allure_spa.api.auth.TokenManager;
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.ToJson;
@@ -14,6 +13,7 @@ import java.util.Locale;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 
@@ -23,7 +23,7 @@ public class ApiConstants {
 //    public static final String API_BASE_URL = "http://192.168.1.119:8000/api/";
 //    public static final String API_BASE_URL = "http://167.172.86.47/api/";
 
-//    public static final String WEB_BASE_URL = "http://167.172.86.47/";
+    //    public static final String WEB_BASE_URL = "http://167.172.86.47/";
     public static final String WEB_BASE_URL = "http://10.0.1.172:8000/";
 
 
@@ -88,8 +88,9 @@ public class ApiConstants {
         }).build();
     }
 
-
     public static OkHttpClient getOkHttpClientWithAuth(String token) {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return new OkHttpClient.Builder().addInterceptor(chain -> {
             Request originalRequest = chain.request();
             Request.Builder builder = originalRequest.newBuilder().
@@ -97,7 +98,7 @@ public class ApiConstants {
                     header("Authorization", "Bearer " + token);
             Request newRequest = builder.build();
             return chain.proceed(newRequest);
-        }).build();
+        }).addInterceptor(loggingInterceptor).build();
     }
 
     //    MOSHI BUILDER

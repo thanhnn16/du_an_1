@@ -29,7 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.google.gson.Gson;
-import com.miwth.allure_spa.ui.views.RateAndReviews.Rating_Reviews;
+import com.miwth.allure_spa.ui.views.rating.RatingActivity;
 import com.squareup.picasso.Picasso;
 
 
@@ -75,7 +75,7 @@ public class CosmeticDetailActivity extends AppCompatActivity {
         llAddToCartBtn = findViewById(R.id.llAddToCartBtn);
 
         llAddToCartBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(CosmeticDetailActivity.this, Rating_Reviews.class);
+            Intent intent = new Intent(CosmeticDetailActivity.this, RatingActivity.class);
             startActivity(intent);
         });
 

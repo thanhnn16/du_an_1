@@ -4,9 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.views.home.fragment.ProfileFragment">
-
-
+    tools:context=".ui.views.home.fragment.profile.ProfileFragment">
 
 
     <RelativeLayout
@@ -15,16 +13,15 @@
         android:background="@color/white">
 
 
-
         <TextView
             android:id="@+id/tvProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:text="PROFILE"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_centerHorizontal="true" />
+            android:textStyle="bold" />
 
 
         <!-- Avatar -->
@@ -36,17 +33,17 @@
             android:layout_marginTop="100dp"
             android:background="@drawable/avt_profile"
             android:clipToOutline="true"
-            android:src="@drawable/placeholder"/>
+            android:src="@drawable/placeholder" />
 
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_below="@+id/tvProfile"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="121dp"
-            android:layout_marginTop="55dp"
-            android:text="Ngông Nguyễn Thành"
+            android:layout_toEndOf="@id/imgAvatar"
+            android:layout_alignTop="@id/imgAvatar"
+            android:layout_marginStart="16dp"
+            android:text="@string/welcome_customer"
             android:textSize="23sp"
             android:textStyle="bold" />
 
@@ -54,12 +51,10 @@
         <TextView
             android:id="@+id/tv_phone_number"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/tvName"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="121dp"
-            android:gravity="top"
-            android:text="0123456789"
+            android:layout_alignStart="@id/tvName"
+            android:text=""
             android:textColor="#B1B1B1"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -70,8 +65,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/imgAvatar"
-            android:layout_marginTop="40dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="20dp"
             android:divider="@null"
             android:dividerHeight="0dp"
@@ -85,16 +80,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/lvProfile"
-            android:layout_marginTop="50dp"
             android:layout_marginStart="27dp"
+            android:layout_marginTop="50dp"
             android:paddingVertical="15dp">
 
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_marginStart="20dp"
-                android:src="@drawable/ic_logout_profile"
-                />
+                android:src="@drawable/ic_logout_profile" />
 
             <TextView
                 android:id="@+id/tvLogout"
@@ -107,7 +101,6 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
-
 
 
     </RelativeLayout>

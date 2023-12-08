@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,17 +22,9 @@ import com.miwth.allure_spa.api.auth.TokenManager;
 import com.miwth.allure_spa.api.treatment.TreatmentsRepository;
 import com.miwth.allure_spa.api.treatment.TreatmentsResponse;
 import com.miwth.allure_spa.model.Treatments;
-import com.miwth.allure_spa.ui.adapter.TimeSlotAdapter;
-import com.miwth.allure_spa.ui.views.RateAndReviews.Rating_Reviews;
-import com.miwth.allure_spa.ui.views.cosmetic.CosmeticDetailActivity;
-import com.miwth.allure_spa.ui.views.treatment.BookService.BookInformation;
+import com.miwth.allure_spa.ui.views.rating.RatingActivity;
+import com.miwth.allure_spa.ui.views.treatment.booking.BookingActivity;
 import com.squareup.picasso.Picasso;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,7 +74,7 @@ public class TreatmentDetails extends AppCompatActivity {
                 // Get the service price
                 String servicePrice = tvTreatmentPrice.getText().toString();
 
-                startActivity(new Intent(TreatmentDetails.this, BookInformation.class)
+                startActivity(new Intent(TreatmentDetails.this, BookingActivity.class)
                         .putExtra("treatment_id", getIntent().getIntExtra("treatment_id", 0))
                         .putExtra("treatment_price", getIntent().getIntExtra("price", 0)));
 
@@ -91,7 +82,7 @@ public class TreatmentDetails extends AppCompatActivity {
         });
 
         llComment.setOnClickListener(v -> {
-            Intent intent = new Intent(TreatmentDetails.this, Rating_Reviews.class);
+            Intent intent = new Intent(TreatmentDetails.this, RatingActivity.class);
             startActivity(intent);
         });
 

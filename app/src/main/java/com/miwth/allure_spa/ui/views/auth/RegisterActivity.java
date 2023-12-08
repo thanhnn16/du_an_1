@@ -19,8 +19,7 @@ import com.miwth.allure_spa.api.auth.AuthResponse;
 import com.miwth.allure_spa.api.auth.TokenManager;
 import com.miwth.allure_spa.api.auth.UserRepository;
 import com.miwth.allure_spa.ui.views.home.HomeActivity;
-import com.miwth.allure_spa.ui.views.home.fragment.HomeFragment;
-import com.miwth.allure_spa.ui.views.home.fragment.Profile.DetailUser;
+import com.miwth.allure_spa.ui.views.home.fragment.profile.UserDetailActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -120,7 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
                             });
 
                             btnFillInfo.setOnClickListener(v -> {
-                                Intent intent = new Intent(RegisterActivity.this, DetailUser.class);
+                                Intent intent = new Intent(RegisterActivity.this, UserDetailActivity.class);
                                 startActivity(intent);
                                 finish();
                             });
