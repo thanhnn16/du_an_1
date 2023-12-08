@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 //                startActivity(new Intent(MainActivity.this, TreatmentDetails.class));
 //                startActivity(new Intent(MainActivity.this, NotificationFragment.class));
 
+
                 startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
                 finish();
             }
