@@ -54,8 +54,10 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.10")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
 
-//chat
     implementation ("com.facebook.fresco:fresco:2.5.0")
+
+    implementation ("com.pusher:pusher-java-client:2.4.2")
+
 
 
 

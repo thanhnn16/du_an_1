@@ -25,7 +25,7 @@ import com.miwth.allure_spa.model.Treatments;
 import com.miwth.allure_spa.ui.adapter.BestSellCosmeticAdapter;
 import com.miwth.allure_spa.ui.adapter.CosmeticAdapter;
 import com.miwth.allure_spa.ui.adapter.TreatmentAdapter;
-import com.miwth.allure_spa.ui.views.Cart.Cart;
+import com.miwth.allure_spa.ui.views.cart.CartActivity;
 import com.miwth.allure_spa.ui.views.SeeMoreActivity;
 import com.miwth.allure_spa.ui.views.WebviewActivity;
 import com.miwth.allure_spa.util.callback.SideMenuCallBack;
@@ -138,7 +138,7 @@ public class HomeFragment extends Fragment {
 
         ImageButton btnCart = homeFragmentView.findViewById(R.id.btnCart);
         btnCart.setOnClickListener(v -> {
-            Intent intent1 = new Intent(getActivity(), Cart.class);
+            Intent intent1 = new Intent(getActivity(), CartActivity.class);
             startActivity(intent1);
         });
 

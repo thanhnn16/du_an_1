@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.miwth.allure_spa">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
@@ -26,7 +27,7 @@
             android:name=".ui.views.home.fragment.profile.UserDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.views.Cart.Cart"
+            android:name=".ui.views.cart.CartActivity"
             android:exported="false" />
         <activity
             android:name=".ui.views.payment.PaymentActivity"
@@ -91,13 +92,7 @@
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/logo_without_text" />
 
-        <service
-            android:name=".api.FcmNotificationService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
+            <service android:name=".api.PusherService" />
     </application>
 
 </manifest>

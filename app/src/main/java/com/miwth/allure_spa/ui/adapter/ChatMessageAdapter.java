@@ -2,6 +2,7 @@ package com.miwth.allure_spa.ui.adapter;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,28 +13,30 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.miwth.allure_spa.R;
+import com.miwth.allure_spa.api.chat.MessagesResponse;
 import com.miwth.allure_spa.model.Message;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.MessageViewHolder> {
 
-    private List<Message> messageList;
-    private String friend_id;
+    private ArrayList<MessagesResponse> messageList;
+    private int friendId;
     private Context context;
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
-    public ChatMessageAdapter(List<Message> messageList, String friend_id, Context context){
-        this.friend_id = friend_id;
+    public ChatMessageAdapter(ArrayList<MessagesResponse> messageList, int friendId, Context context){
+        this.friendId = friendId;
         this.context = context;
         this.messageList = messageList;
     }
 
     @Override
     public int getItemViewType(int position) {
-        Message message = messageList.get(position);
-        if(message.getSender_id().equals(friend_id)) {
+        MessagesResponse message = messageList.get(position);
+        if(message.getSender_id() == friendId) {
             return VIEW_TYPE_MESSAGE_RECEIVED;
         }
         return VIEW_TYPE_MESSAGE_SENT;
@@ -56,17 +59,21 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ChatMessageAdapter.MessageViewHolder holder, int position) {
-        Message message = messageList.get(position);
-        if(message.getPhotoUrl() == null){
-            holder.photo_image_view.setVisibility(View.GONE);
-            holder.setTexts(message);
-        }
-        else{
-            holder.photo_image_view.setImageURI(Uri.parse(message.getPhotoUrl()));
-            String dateTime = message.getTimestamp() + ", " + message.getDate();
-            holder.message_text_view.setVisibility(View.GONE);
-            holder.time_text_view.setText(dateTime);
-        }
+        MessagesResponse message = messageList.get(position);
+//        if(message.get() == null){
+//            holder.photo_image_view.setVisibility(View.GONE);
+//            holder.setTexts(message);
+//        }
+//        else{
+//            holder.photo_image_view.setImageURI(Uri.parse(message.getPhotoUrl()));
+//            String dateTime = message.getTimestamp() + ", " + message.getDate();
+//            holder.message_text_view.setVisibility(View.GONE);
+//            holder.time_text_view.setText(dateTime);
+//        }
+
+        holder.photo_image_view.setImageResource(R.drawable.logo_with_text);
+        String dateTime = String.valueOf(message.getSent_at());
+        holder.message_text_view.setText(message.getMessage());
         holder.setIsRecyclable(false);
     }
 
@@ -76,7 +83,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
             return messageList.size();
         }
         catch (NullPointerException e){
-            e.printStackTrace();
+            Log.e("ChatAdapter", "getItemCount: ", e);
         }
         return 0;
     }
@@ -97,7 +104,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
 
         private void setTexts(Message message) {
             message_text_view.setText(message.getMessage());
-            String dateTime = message.getTimestamp() + ", " + message.getDate();
+            String dateTime = message.getSent_at();
             time_text_view.setText(dateTime);
         }
 

@@ -1,4 +1,4 @@
-package com.miwth.allure_spa.ui.views.Cart;
+package com.miwth.allure_spa.ui.views.cart;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Cart extends AppCompatActivity implements CartItemCheckCallBack {
+public class CartActivity extends AppCompatActivity implements CartItemCheckCallBack {
 
     View bottomSheetView;
     RecyclerView rvCart;
@@ -100,7 +100,7 @@ public class Cart extends AppCompatActivity implements CartItemCheckCallBack {
         btnAddToCart = bottomSheetView.findViewById(R.id.btnAddToCart);
 
         btnAddToCart.setOnClickListener(v -> {
-            Intent intent = new Intent(Cart.this, PaymentActivity.class);
+            Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
             startActivity(intent);
         });
         bottomSheetDialog.setContentView(bottomSheetView);

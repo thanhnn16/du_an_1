@@ -15,11 +15,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.miwth.allure_spa.R;
 import com.miwth.allure_spa.api.auth.TokenManager;
+import com.miwth.allure_spa.ui.views.chat.ChatActivity;
 import com.miwth.allure_spa.ui.views.home.fragment.HomeFragment;
 import com.miwth.allure_spa.ui.views.home.fragment.NotificationFragment;
 import com.miwth.allure_spa.ui.views.home.fragment.profile.ProfileFragment;
@@ -36,6 +38,7 @@ public class HomeActivity extends AppCompatActivity implements SideMenuCallBack,
     DrawerLayout drawerLayout;
     private long pressedTime;
     BottomNavigationView bottomNavigationView;
+    FloatingActionButton fabChat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +130,9 @@ public class HomeActivity extends AppCompatActivity implements SideMenuCallBack,
 //        searchFragment = new SearchFragment();
 //        notificationFragment = new NotificationFragment();
 //        profileFragment = new ProfileFragment();
+
+        fabChat = findViewById(R.id.fab);
+        fabChat.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, ChatActivity.class)));
 
         drawerLayout = findViewById(R.id.drawerLayout);
 

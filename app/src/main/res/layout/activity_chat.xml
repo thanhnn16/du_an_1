@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
-            android:text="Chat cùng chuyên "
+            android:text="Tư vấn"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -74,8 +74,7 @@
         android:id="@+id/rcvChat"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
-        android:paddingBottom="12dp"
+        android:paddingBottom="32dp"
         app:layout_constraintBottom_toTopOf="@+id/edtComment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,33 +83,36 @@
     <EditText
         android:id="@+id/edtComment"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="52dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Type a message"
+        android:paddingHorizontal="16dp"
+        android:hint="Nhập tin nhắn..."
         android:background="@drawable/bg_chat"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/send_message_image"
-        app:layout_constraintStart_toEndOf="@+id/send_image_chat" />
-
-    <ImageView
-        android:id="@+id/send_image_chat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnSend"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/ic_camera_chat"
-        app:layout_constraintTop_toTopOf="@+id/edtComment" />
+        />
 
-    <ImageView
-        android:id="@+id/send_message_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+<!--    <ImageView-->
+<!--        android:id="@+id/send_image_chat"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        android:background="@drawable/ic_camera_chat"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/edtComment" />-->
+
+    <ImageButton
+        android:id="@+id/btnSend"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/ic_send_mess"
-        app:layout_constraintTop_toBottomOf="@+id/rcvChat" />
+        app:layout_constraintTop_toBottomOf="@+id/rcvChat"
+        android:contentDescription="Gửi" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
